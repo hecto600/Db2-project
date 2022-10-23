@@ -9,7 +9,7 @@ import java.util.List;
 
 import app.model.Customer;
 
-public class CustomerDao  implements InteraceCustomerDao{
+public class CustomerDao  implements InterfaceCustomerDao{
     private Connection con;
 
     public CustomerDao() throws ClassNotFoundException, SQLException{
@@ -18,7 +18,7 @@ public class CustomerDao  implements InteraceCustomerDao{
     }
 
     @Override
-    public List<Customer> visualizeAllCustomer() throws SQLException {
+    public List<Customer> visualizeAllCustomers() throws SQLException {
          String sql =   "SELECT "           +
                         "CustomerID, "      +
                         "CompanyName, "     +
