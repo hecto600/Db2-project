@@ -19,7 +19,7 @@ public class App extends Application {
             root = FXMLLoader.load(getClass().getResource("MainScene.fxml"));
             Scene scene = new Scene(root);
 
-            primaryStage.setTitle("Hello World!");
+            primaryStage.setTitle("Database 2 Project");
             primaryStage.setScene(scene);
             primaryStage.show();
 
