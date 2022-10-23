@@ -15,7 +15,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
 <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="770.0" prefWidth="1156.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.AppController">
    <tabs>
@@ -57,14 +56,14 @@
                                                       <Separator orientation="VERTICAL" prefHeight="50.0" />
                                                       <Label text="Insert a CustomerID to visualize:" />
                                                       <TextField fx:id="tfSearchCustomerID" promptText="CustomerID" />
-                                                      <Button fx:id="btnSearchCustomer" mnemonicParsing="false" onAction="#actionCustomers" text="Search Customer">
+                                                      <Button fx:id="btnVisualizeCustomer" mnemonicParsing="false" onAction="#actionCustomers" text="Search Customer">
                                                          <VBox.margin>
                                                             <Insets top="5.0" />
                                                          </VBox.margin>
                                                       </Button>
                                                       <Separator orientation="VERTICAL" prefHeight="30.0" />
                                                       <Label text="Return a list of all customers in database:" />
-                                                      <Button fx:id="btnShowAllCustomers" mnemonicParsing="false" onAction="#actionCustomers" text="Show all customers" />
+                                                      <Button fx:id="btnVisualizeAllCustomers" mnemonicParsing="false" onAction="#actionCustomers" text="List all customers" />
                                                    </children>
                                                 </VBox>
                                                 <Separator HBox.hgrow="ALWAYS" />
@@ -179,13 +178,9 @@
                                           </VBox>
                                           <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="11">
                                              <children>
-                                                <Button fx:id="btnConfirmCustomer" mnemonicParsing="false" onAction="#actionCustomers" text="Confirm" />
+                                                <Button fx:id="btnInsertConfirmCustomer" mnemonicParsing="false" onAction="#actionCustomers" text="Confirm" />
                                                 <Separator prefWidth="10.0" />
-                                                <Label fx:id="labelInsertError" text="Error: Invalid input. Operation aborted!" textFill="RED" visible="false" wrapText="true">
-                                                   <font>
-                                                      <Font size="10.0" />
-                                                   </font>
-                                                </Label>
+                                                <Label fx:id="labelInsertError" text="Error: Invalid input. Operation aborted!" textFill="RED" visible="false" wrapText="true" />
                                              </children>
                                           </HBox>
                                        </children>
@@ -204,7 +199,117 @@
                         </Tab>
                         <Tab text="Update">
                            <content>
-                              <AnchorPane />
+                              <AnchorPane>
+                                 <children>
+                                    <GridPane layoutX="419.0" layoutY="83.0" prefHeight="791.0" prefWidth="1575.0" vgap="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+                                             <children>
+                                                <HBox prefHeight="100.0" prefWidth="200.0">
+                                                   <children>
+                                                      <Label text="CustomerID: " />
+                                                      <Separator prefWidth="10.0" />
+                                                      <Label fx:id="labelInsertRequiredField1" text="*Required" textFill="RED" visible="false" />
+                                                   </children>
+                                                </HBox>
+                                                <TextField fx:id="tfInsertCustomerID1" promptText="CustomerID">
+                                                   <VBox.margin>
+                                                      <Insets />
+                                                   </VBox.margin>
+                                                </TextField>
+                                             </children>
+                                          </VBox>
+                                          <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.rowIndex="1">
+                                             <children>
+                                                <Label text="CompanyName: " />
+                                                <TextField fx:id="tfInsertCompanyName1" promptText="CompanyName" />
+                                             </children>
+                                          </VBox>
+                                          <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.rowIndex="2">
+                                             <children>
+                                                <Label text="ContactName: " />
+                                                <TextField fx:id="tfInsertContactName1" promptText="ContactName" />
+                                             </children>
+                                          </VBox>
+                                          <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.rowIndex="3">
+                                             <children>
+                                                <Label text="ContactTitle: " />
+                                                <TextField fx:id="tfInsertContactTitle1" promptText="ContactTitle" />
+                                             </children>
+                                          </VBox>
+                                          <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.rowIndex="4">
+                                             <children>
+                                                <Label text="Address: " />
+                                                <TextField fx:id="tfInsertAddress1" promptText="Address" />
+                                             </children>
+                                          </VBox>
+                                          <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.rowIndex="5">
+                                             <children>
+                                                <Label text="City: " />
+                                                <TextField fx:id="tfInsertCity1" promptText="City" />
+                                             </children>
+                                          </VBox>
+                                          <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.rowIndex="6">
+                                             <children>
+                                                <Label text="Region: " />
+                                                <TextField fx:id="tfInsertRegion1" promptText="Region" />
+                                             </children>
+                                          </VBox>
+                                          <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.rowIndex="7">
+                                             <children>
+                                                <Label text="PostalCode: " />
+                                                <TextField fx:id="tfInsertPostalCode1" promptText="PostalCode" />
+                                             </children>
+                                          </VBox>
+                                          <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.rowIndex="8">
+                                             <children>
+                                                <Label text="Country: " />
+                                                <TextField fx:id="tfInsertCountry1" promptText="Country" />
+                                             </children>
+                                          </VBox>
+                                          <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.rowIndex="9">
+                                             <children>
+                                                <Label text="Phone: " />
+                                                <TextField fx:id="tfInsertPhone1" promptText="Phone" />
+                                             </children>
+                                          </VBox>
+                                          <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.rowIndex="10">
+                                             <children>
+                                                <Label text="Fax: " />
+                                                <TextField fx:id="tfInsertFax1" promptText="Fax" />
+                                             </children>
+                                          </VBox>
+                                          <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="11">
+                                             <children>
+                                                <Button fx:id="btnUpdateConfirmCustomer" mnemonicParsing="false" onAction="#actionCustomers" text="Confirm" />
+                                                <Separator prefWidth="10.0" />
+                                                <Label fx:id="labelInsertError1" text="Error: Invalid input. Operation aborted!" textFill="RED" visible="false" wrapText="true" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="30.0" left="100.0" right="100.0" top="20.0" />
+                                       </padding>
+                                    </GridPane>
+                                 </children></AnchorPane>
                            </content>
                         </Tab>
                      </tabs>

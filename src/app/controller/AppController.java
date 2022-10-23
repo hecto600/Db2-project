@@ -1,10 +1,12 @@
 package app.controller;
 
+import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
 
+import app.model.Customer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -14,20 +16,20 @@ import javafx.scene.control.TextField;
 public class AppController {
 
     @FXML
-    private Button btnConfirmCustomer;
+    private Button btnInsertConfirmCustomer;
 
     @FXML
-    private Button btnSearchCustomer;
+    private Button btnVisualizeCustomer;
 
     @FXML
-    private Button btnShowAllCustomers;
+    private Button btnVisualizeAllCustomers;
 
     @FXML
     private Label labelInsertError;
 
     @FXML
     private Label labelInsertRequiredField;
-    
+
     @FXML
     private TextField tfInsertAddress;
 
@@ -70,22 +72,34 @@ public class AppController {
         CustomerController customerController = new CustomerController(tfInsertCompanyName, tfInsertContactName,
                 tfInsertAddress, tfInsertCity, tfInsertRegion, tfInsertPostalCode,
                 tfInsertCountry, tfInsertPhone, tfInsertFax, null);
-       cmd = cmd.substring(cmd.indexOf("=")+1,cmd.indexOf(","));
-       System.out.println(cmd);
-        switch (cmd) {
-            case "btnConfirmCustomer":
-                if (tfInsertCustomerID.getText().isEmpty())
-                    labelInsertRequiredField.setVisible(true);
-                    labelInsertError.setVisible(true);
-                
-                break;
-            case "btnSearchCustomer":
+        cmd = cmd.substring(cmd.indexOf("=") + 1, cmd.indexOf(","));
+        
+        try {
+            switch (cmd) {
+                case "btnInsertConfirmCustomer":
+                    if (tfInsertCustomerID.getText().isEmpty()) {
+                        labelInsertRequiredField.setVisible(true);
+                        labelInsertError.setVisible(true);
+                    } else {
+                        Customer c = new Customer();
+                        c.setCustomerID(tfSearchCustomerID.getText());
+                        customerController.insertCustomer(c);
+                    }
+                    break;
+                case "btnVisualizeCustomer":
+                    Customer c = new Customer();
+                    c.setCustomerID(tfSearchCustomerID.getText());
+                    customerController.visualizeCustomer(c);
 
-                break;
-            case "btnShowAllCustomers":
-                break;
-            default:
-                break;
+                    break;
+                case "btnVisualizeAllCustomers":
+                    customerController.visualizeAllCustomers();
+                    break;
+                default:
+                    break;
+            }
+        } catch (ClassNotFoundException | SQLException se) {
+            se.printStackTrace();
         }
     }
 
