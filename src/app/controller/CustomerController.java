@@ -72,6 +72,15 @@ public class CustomerController implements InterfaceCustomerController {
         c = cDao.visualizeCustomer(c);
 
         tfCustomerID.setText(c.getCustomerID());
+        tfCompanyName.setText(c.getCompanyName());
+        tfContactName.setText(c.getContactName());
+        tfAdress.setText(c.getAddres());
+        tfCity.setText(c.getCity());
+        tfRegion.setText(c.getRegion());
+        tfPostalCode.setText(c.getPostalCode());
+        tfCountry.setText(c.getCountry());
+        tfPhone.setText(c.getPhone());
+        tfFax.setText(c.getFax());
     }
 
     @Override
