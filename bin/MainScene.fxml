@@ -18,7 +18,7 @@
 
 <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="770.0" prefWidth="1156.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.AppController">
    <tabs>
-      <Tab text="Clients">
+      <Tab text="Customers">
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
@@ -45,7 +45,7 @@
                                                 <Separator orientation="VERTICAL" prefHeight="50.0" />
                                                 <HBox alignment="CENTER_LEFT" spacing="5.0">
                                                    <children>
-                                                      <Label text="Insert a customer ID to visualize:" />
+                                                      <Label text="Input a customer ID to visualize:" />
                                                       <Label fx:id="labelVisualizeRequiredField" text="*Required" textFill="RED" visible="false" />
                                                    </children>
                                                 </HBox>
@@ -217,7 +217,7 @@
                                              <children>
                                                 <HBox prefHeight="100.0" prefWidth="200.0">
                                                    <children>
-                                                      <Label text="Insert the customer ID to update: " />
+                                                      <Label text="Input the customer ID to update: " />
                                                       <Separator prefWidth="10.0" />
                                                       <Label fx:id="labelUpdateRequiredField" text="*Required" textFill="RED" visible="false" />
                                                    </children>
@@ -325,7 +325,7 @@
                                                 <Separator orientation="VERTICAL" prefHeight="50.0" />
                                                 <HBox alignment="CENTER_LEFT" spacing="5.0">
                                                    <children>
-                                                      <Label text="Insert the customer ID to remove:" />
+                                                      <Label text="Input the customer ID to remove:" />
                                                       <Label fx:id="labelRemoveRequiredField" text="*Required" textFill="RED" visible="false" />
                                                    </children>
                                                 </HBox>

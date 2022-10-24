@@ -13,6 +13,7 @@ public class CustomerController implements InterfaceCustomerController {
     private TextField tfCustomerID;
     private TextField tfCompanyName;
     private TextField tfContactName;
+    private TextField tfContactTitle;
     private TextField tfAdress;
     private TextField tfCity;
     private TextField tfRegion;
@@ -22,56 +23,68 @@ public class CustomerController implements InterfaceCustomerController {
     private TextField tfFax;
     private TextArea taResult;
 
-    public CustomerController(TextField tfCompanyName, TextField tfContactName, TextField tfAdress, TextField tfCity,
-            TextField tfRegion, TextField tfPostalCode, TextField tfCountry, TextField tfPhone, TextField tfFax,
-            TextArea taResult) {
-        this.tfCompanyName = tfCompanyName;
-        this.tfContactName = tfContactName;
-        this.tfAdress = tfAdress;
-        this.tfCity = tfCity;
-        this.tfRegion = tfRegion;
-        this.tfPostalCode = tfPostalCode;
-        this.tfCountry = tfCountry;
-        this.tfPhone = tfPhone;
-        this.tfFax = tfFax;
-        this.taResult = taResult;
+    public CustomerController(TextField tfCustomerID, TextArea tA){
+        this.tfCustomerID = tfCustomerID;
+        this.taResult = tA;
     }
+
+    //insert && update
+    public CustomerController(TextField tfID, TextField tfCN, TextField tfCName,
+            TextField tfCT,
+            TextField tfA, TextField tfCity,
+            TextField tfR, TextField tfPC, TextField tfC, TextField tfP, TextField tfF,
+            TextArea taR) {
+        this.tfCustomerID = tfID;
+        this.tfCompanyName = tfCN;
+        this.tfContactName = tfCName;
+        this.tfContactTitle = tfCT;
+        this.tfAdress = tfA;
+        this.tfCity = tfCity;
+        this.tfRegion = tfR;
+        this.tfPostalCode = tfPC;
+        this.tfCountry = tfC;
+        this.tfPhone = tfP;
+        this.tfFax = tfF;
+        this.taResult = taR;
+    }
+
 
     @Override
     public void insertCustomer(Customer c) throws ClassNotFoundException, SQLException {
+        customerCleanFields();
         CustomerDao cDao = new CustomerDao();
         cDao.insertCustomer(c);
-        //customerCleanFields();
         visualizeAllCustomers();
 
     }
 
     @Override
     public void updateCustomer(Customer c) throws ClassNotFoundException, SQLException {
+        customerCleanFields();
         CustomerDao cDao = new CustomerDao();
         cDao.updateCustomer(c);
-        //customerCleanFields();
         visualizeAllCustomers();
     }
 
     @Override
     public void removeCustomer(Customer c) throws ClassNotFoundException, SQLException {
+        customerCleanFields();
         CustomerDao cDao = new CustomerDao();
         cDao.removeCustomer(c);
-        //customerCleanFields();
         visualizeAllCustomers();
 
     }
 
     @Override
     public void visualizeCustomer(Customer c) throws ClassNotFoundException, SQLException {
-        //customerCleanFields(); problems with fields = null
+        customerCleanFields();
+
         CustomerDao cDao = new CustomerDao();
-        c = cDao.visualizeCustomer(c);
 
         tfCustomerID.setText(c.getCustomerID());
         tfCompanyName.setText(c.getCompanyName());
         tfContactName.setText(c.getContactName());
+        tfContactTitle.setText(c.getContactTitle());
         tfAdress.setText(c.getAddres());
         tfCity.setText(c.getCity());
         tfRegion.setText(c.getRegion());
@@ -79,11 +92,14 @@ public class CustomerController implements InterfaceCustomerController {
         tfCountry.setText(c.getCountry());
         tfPhone.setText(c.getPhone());
         tfFax.setText(c.getFax());
+
+        c = cDao.visualizeCustomer(c);
+
     }
 
     @Override
     public void visualizeAllCustomers() throws ClassNotFoundException, SQLException {
-       // customerCleanFields(); problems with fields = null
+        customerCleanFields();
 
         CustomerDao cDao = new CustomerDao();
         List<Customer> cList = cDao.visualizeAllCustomers();
@@ -103,26 +119,27 @@ public class CustomerController implements InterfaceCustomerController {
                             "\tFax: " + c.getCity() +
                             "\n");
         }
-
         taResult.setText(buffer.toString());
 
     }
 
-/* ## problems with fields = null ##
     private void customerCleanFields() {
-        
-        tfCustomerID.setText(null);
-        tfCompanyName.setText(null);
-        tfContactName.setText(null);
-        tfAdress.setText(null);
-        tfCity.setText(null);
-        tfRegion.setText(null);
-        tfPostalCode.setText(null);
-        tfCountry.setText(null);
-        tfPhone.setText(null);
-        tfFax.setText(null);
-        taResult.setText(null);
+
+            
+        tfCustomerID.setText("");
+        if (tfCompanyName != null && taResult != null) {
+            tfCompanyName.setText("");
+            tfContactName.setText("");
+            tfContactTitle.setText("");
+            tfAdress.setText("");
+            tfCity.setText("");
+            tfRegion.setText("");
+            tfPostalCode.setText("");
+            tfCountry.setText("");
+            tfPhone.setText("");
+            tfFax.setText("");
+            taResult.setText("");
+        }
     }
-*/
 
 }

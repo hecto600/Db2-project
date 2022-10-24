@@ -132,6 +132,35 @@ public class AppController {
     @FXML
     private TextField tfVisualizeCustomerID;
 
+    CustomerController createCustomerController(String type) {
+        CustomerController cc;
+        switch (type) {
+            case "visualize":
+                cc = new CustomerController(tfVisualizeCustomerID, taVisualizeResult);
+                return cc;
+
+            case "insert":
+                cc = new CustomerController(tfInsertCustomerID, tfInsertCompanyName, tfInsertContactName,
+                        tfInsertContactTitle, tfInsertAddress, tfInsertCity, tfInsertRegion, tfInsertPostalCode,
+                        tfInsertCountry, tfInsertPhone, tfInsertFax, taVisualizeResult);
+                return cc;
+
+            case "update":
+                cc = new CustomerController(tfUpdateCustomerID, tfUpdateCompanyName, tfUpdateContactName,
+                        tfInsertContactTitle, tfUpdateAddress, tfUpdateCity, tfUpdateRegion, tfUpdatePostalCode,
+                        tfUpdateCountry, tfUpdatePhone, tfUpdateFax, taVisualizeResult);
+                return cc;
+
+            case "remove":
+                cc = new CustomerController(tfRemoveCustomerID, taVisualizeResult);
+                return cc;
+
+            default:
+                return null;
+        }
+
+    }
+
     void fullfillField(Customer c, String type) {
         switch (type) {
             case "visualize":
@@ -178,13 +207,11 @@ public class AppController {
     @FXML
     void actionCustomers(ActionEvent event) {
         String cmd = event.getSource().toString();
-        CustomerController customerController = new CustomerController(tfInsertCompanyName, tfInsertContactName,
-                tfInsertAddress, tfInsertCity, tfInsertRegion, tfInsertPostalCode,
-                tfInsertCountry, tfInsertPhone, tfInsertFax, null);
+        CustomerController customerController;
         cmd = cmd.substring(cmd.indexOf("=") + 1, cmd.indexOf(","));
 
         try {
-            //Setting the errors message to false
+            // Setting the errors message to false
             labelVisualizeErrorMessage.setVisible(false);
             labelVisualizeRequiredField.setVisible(false);
             labelVisualizeError.setVisible(false);
@@ -194,24 +221,35 @@ public class AppController {
             labelUpdateRequiredField.setVisible(false);
             labelRemoveError.setVisible(false);
             labelRemoveRequiredField.setVisible(false);
+            final String VISUALIZE = "visualize";
+            final String INSERT = "insert";
+            final String UPDATE = "update";
+            final String REMOVE = "remove";
+
             Customer c = new Customer();
             switch (cmd) {
                 case "btnVisualizeCustomer":
+                    customerController = createCustomerController(VISUALIZE);
+
                     if (tfVisualizeCustomerID.getText().isEmpty()) {
                         labelVisualizeRequiredField.setVisible(true);
                         labelVisualizeError.setVisible(true);
                     } else {
-                        fullfillField(c, "visualize");
+                        fullfillField(c, VISUALIZE);
                         taVisualizeResult.setText("Searched customerID: " + c.getCustomerID());
                         customerController.visualizeCustomer(c);
                         c.setCustomerID(tfVisualizeCustomerID.getText());
                     }
                     break;
+
                 case "btnVisualizeAllCustomers":
+                    customerController = createCustomerController(VISUALIZE);
                     customerController.visualizeAllCustomers();
                     break;
 
                 case "btnInsertCustomer":
+                    customerController = createCustomerController(INSERT);
+
                     if (tfInsertCustomerID.getText().isEmpty()) {
                         labelInsertRequiredField.setVisible(true);
                         labelInsertError.setVisible(true);
@@ -223,6 +261,8 @@ public class AppController {
                     break;
 
                 case "btnUpdateCustomer":
+                    customerController = createCustomerController(UPDATE);
+
                     if (tfUpdateCustomerID.getText().isEmpty()) {
                         labelUpdateError.setVisible(true);
                         labelUpdateRequiredField.setVisible(true);
@@ -230,12 +270,18 @@ public class AppController {
                         fullfillField(c, "update");
                         customerController.updateCustomer(c);
                     }
+                    break;
+
                 case "btnRemoveCustomer":
-                    if(tfRemoveCustomerID.getText().isEmpty()){
+                    customerController = createCustomerController(REMOVE);
+
+                    if (tfRemoveCustomerID.getText().isEmpty()) {
                         labelRemoveError.setVisible(true);
                         labelRemoveRequiredField.setVisible(true);
+                    } else {
+                        customerController.removeCustomer(c);
                     }
-
+                    break;
                 default:
                     break;
             }
