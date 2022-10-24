@@ -41,7 +41,7 @@ public class CustomerController implements InterfaceCustomerController {
     public void insertCustomer(Customer c) throws ClassNotFoundException, SQLException {
         CustomerDao cDao = new CustomerDao();
         cDao.insertCustomer(c);
-        customerCleanFields();
+        //customerCleanFields();
         visualizeAllCustomers();
 
     }
@@ -50,24 +50,22 @@ public class CustomerController implements InterfaceCustomerController {
     public void updateCustomer(Customer c) throws ClassNotFoundException, SQLException {
         CustomerDao cDao = new CustomerDao();
         cDao.updateCustomer(c);
-        customerCleanFields();
+        //customerCleanFields();
         visualizeAllCustomers();
     }
 
     @Override
     public void removeCustomer(Customer c) throws ClassNotFoundException, SQLException {
-        // TODO Auto-generated method stub
         CustomerDao cDao = new CustomerDao();
         cDao.removeCustomer(c);
-        customerCleanFields();
+        //customerCleanFields();
         visualizeAllCustomers();
 
     }
 
     @Override
     public void visualizeCustomer(Customer c) throws ClassNotFoundException, SQLException {
-        // TODO Auto-generated method stub
-        //customerCleanFields();
+        //customerCleanFields(); problems with fields = null
         CustomerDao cDao = new CustomerDao();
         c = cDao.visualizeCustomer(c);
 
@@ -85,7 +83,7 @@ public class CustomerController implements InterfaceCustomerController {
 
     @Override
     public void visualizeAllCustomers() throws ClassNotFoundException, SQLException {
-       // customerCleanFields();
+       // customerCleanFields(); problems with fields = null
 
         CustomerDao cDao = new CustomerDao();
         List<Customer> cList = cDao.visualizeAllCustomers();
@@ -110,7 +108,9 @@ public class CustomerController implements InterfaceCustomerController {
 
     }
 
+/* ## problems with fields = null ##
     private void customerCleanFields() {
+        
         tfCustomerID.setText(null);
         tfCompanyName.setText(null);
         tfContactName.setText(null);
@@ -123,5 +123,6 @@ public class CustomerController implements InterfaceCustomerController {
         tfFax.setText(null);
         taResult.setText(null);
     }
+*/
 
 }

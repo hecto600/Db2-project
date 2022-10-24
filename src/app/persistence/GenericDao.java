@@ -11,7 +11,7 @@ public class GenericDao {
         String hostname = "DESKTOP-CQHO7Q7/SQLEXPRESS";
         String dbName = "Northwind";
         String user = "DESKTOP-CQHO7Q7";
-        String pw = "";
+        String pw = "dba";
 
         Class.forName("net.sourceforge.jtds.jdbc.Driver");
 
