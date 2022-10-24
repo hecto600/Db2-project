@@ -1,10 +1,7 @@
 package app.controller;
 
 import java.sql.SQLException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import javax.swing.JOptionPane;
 
 import app.model.Customer;
 import javafx.event.ActionEvent;
@@ -16,19 +13,28 @@ import javafx.scene.control.TextField;
 public class AppController {
 
     @FXML
-    private Button btnInsertConfirmCustomer;
+    private Button btnInsertCustomer;
 
     @FXML
-    private Button btnVisualizeCustomer;
+    private Button btnUpdateCustomer;
 
     @FXML
     private Button btnVisualizeAllCustomers;
+
+    @FXML
+    private Button btnVisualizeCustomer;
 
     @FXML
     private Label labelInsertError;
 
     @FXML
     private Label labelInsertRequiredField;
+
+    @FXML
+    private Label labelUpdateError;
+
+    @FXML
+    private Label labelUpdateRequiredField;
 
     @FXML
     private TextField tfInsertAddress;
@@ -64,7 +70,41 @@ public class AppController {
     private TextField tfInsertRegion;
 
     @FXML
-    private TextField tfSearchCustomerID;
+    private TextField tfUpdateAddress;
+
+    @FXML
+    private TextField tfUpdateCity;
+
+    @FXML
+    private TextField tfUpdateCompanyName;
+
+    @FXML
+    private TextField tfUpdateContactName;
+
+    @FXML
+    private TextField tfUpdateContactTitle;
+
+    @FXML
+    private TextField tfUpdateCountry;
+
+    @FXML
+    private TextField tfUpdateCustomerID;
+
+    @FXML
+    private TextField tfUpdateFax;
+
+    @FXML
+    private TextField tfUpdatePhone;
+
+    @FXML
+    private TextField tfUpdatePostalCode;
+
+    @FXML
+    private TextField tfUpdateRegion;
+
+    @FXML
+    private TextField tfVisualizeCustomerID;
+
 
     @FXML
     void actionCustomers(ActionEvent event) {
@@ -76,20 +116,26 @@ public class AppController {
         
         try {
             switch (cmd) {
-                case "btnInsertConfirmCustomer":
+                case "btnInsertCustomer":
                     if (tfInsertCustomerID.getText().isEmpty()) {
                         labelInsertRequiredField.setVisible(true);
                         labelInsertError.setVisible(true);
                     } else {
                         Customer c = new Customer();
-                        c.setCustomerID(tfSearchCustomerID.getText());
+                        c.setCustomerID(tfInsertCustomerID.getText());
                         customerController.insertCustomer(c);
                     }
                     break;
                 case "btnVisualizeCustomer":
-                    Customer c = new Customer();
-                    c.setCustomerID(tfSearchCustomerID.getText());
-                    customerController.visualizeCustomer(c);
+                    if(tfVisualizeCustomerID.getText().isEmpty())
+                    {
+                        System.out.println("WTF");
+                    }else{
+
+                        Customer c = new Customer();
+                        customerController.visualizeCustomer(c);
+                        c.setCustomerID(tfVisualizeCustomerID.getText());
+                    }
 
                     break;
                 case "btnVisualizeAllCustomers":

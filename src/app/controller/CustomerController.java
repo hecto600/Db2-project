@@ -67,7 +67,7 @@ public class CustomerController implements InterfaceCustomerController {
     @Override
     public void visualizeCustomer(Customer c) throws ClassNotFoundException, SQLException {
         // TODO Auto-generated method stub
-        customerCleanFields();
+        //customerCleanFields();
         CustomerDao cDao = new CustomerDao();
         c = cDao.visualizeCustomer(c);
 
@@ -85,8 +85,7 @@ public class CustomerController implements InterfaceCustomerController {
 
     @Override
     public void visualizeAllCustomers() throws ClassNotFoundException, SQLException {
-        customerCleanFields();
-        taResult.setText("test");
+       // customerCleanFields();
 
         CustomerDao cDao = new CustomerDao();
         List<Customer> cList = cDao.visualizeAllCustomers();

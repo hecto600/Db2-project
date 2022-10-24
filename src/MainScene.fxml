@@ -44,7 +44,7 @@
                                              <children>
                                                 <ScrollPane>
                                                    <content>
-                                                      <TextArea prefHeight="346.0" prefWidth="672.0" />
+                                                      <TextArea fx:id="taResult" prefHeight="346.0" prefWidth="672.0" />
                                                    </content>
                                                 </ScrollPane>
                                              </children>
@@ -55,7 +55,7 @@
                                                    <children>
                                                       <Separator orientation="VERTICAL" prefHeight="50.0" />
                                                       <Label text="Insert a CustomerID to visualize:" />
-                                                      <TextField fx:id="tfSearchCustomerID" promptText="CustomerID" />
+                                                      <TextField fx:id="tfVisualizeCustomerID" promptText="CustomerID" />
                                                       <Button fx:id="btnVisualizeCustomer" mnemonicParsing="false" onAction="#actionCustomers" text="Search Customer">
                                                          <VBox.margin>
                                                             <Insets top="5.0" />
@@ -178,7 +178,7 @@
                                           </VBox>
                                           <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="11">
                                              <children>
-                                                <Button fx:id="btnInsertConfirmCustomer" mnemonicParsing="false" onAction="#actionCustomers" text="Confirm" />
+                                                <Button fx:id="btnInsertCustomer" mnemonicParsing="false" onAction="#actionCustomers" text="Insert customer" />
                                                 <Separator prefWidth="10.0" />
                                                 <Label fx:id="labelInsertError" text="Error: Invalid input. Operation aborted!" textFill="RED" visible="false" wrapText="true" />
                                              </children>
@@ -190,11 +190,6 @@
                                     </GridPane>
                                  </children>
                               </AnchorPane>
-                           </content>
-                        </Tab>
-                        <Tab text="Remove">
-                           <content>
-                              <AnchorPane />
                            </content>
                         </Tab>
                         <Tab text="Update">
@@ -227,10 +222,10 @@
                                                    <children>
                                                       <Label text="CustomerID: " />
                                                       <Separator prefWidth="10.0" />
-                                                      <Label fx:id="labelInsertRequiredField1" text="*Required" textFill="RED" visible="false" />
+                                                      <Label fx:id="labelUpdateRequiredField" text="*Required" textFill="RED" visible="false" />
                                                    </children>
                                                 </HBox>
-                                                <TextField fx:id="tfInsertCustomerID1" promptText="CustomerID">
+                                                <TextField fx:id="tfUpdateCustomerID" promptText="CustomerID">
                                                    <VBox.margin>
                                                       <Insets />
                                                    </VBox.margin>
@@ -240,68 +235,68 @@
                                           <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.rowIndex="1">
                                              <children>
                                                 <Label text="CompanyName: " />
-                                                <TextField fx:id="tfInsertCompanyName1" promptText="CompanyName" />
+                                                <TextField fx:id="tfUpdateCompanyName" promptText="CompanyName" />
                                              </children>
                                           </VBox>
                                           <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.rowIndex="2">
                                              <children>
                                                 <Label text="ContactName: " />
-                                                <TextField fx:id="tfInsertContactName1" promptText="ContactName" />
+                                                <TextField fx:id="tfUpdateContactName" promptText="ContactName" />
                                              </children>
                                           </VBox>
                                           <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.rowIndex="3">
                                              <children>
                                                 <Label text="ContactTitle: " />
-                                                <TextField fx:id="tfInsertContactTitle1" promptText="ContactTitle" />
+                                                <TextField fx:id="tfUpdateContactTitle" promptText="ContactTitle" />
                                              </children>
                                           </VBox>
                                           <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.rowIndex="4">
                                              <children>
                                                 <Label text="Address: " />
-                                                <TextField fx:id="tfInsertAddress1" promptText="Address" />
+                                                <TextField fx:id="tfUpdateAddress" promptText="Address" />
                                              </children>
                                           </VBox>
                                           <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.rowIndex="5">
                                              <children>
                                                 <Label text="City: " />
-                                                <TextField fx:id="tfInsertCity1" promptText="City" />
+                                                <TextField fx:id="tfUpdateCity" promptText="City" />
                                              </children>
                                           </VBox>
                                           <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.rowIndex="6">
                                              <children>
                                                 <Label text="Region: " />
-                                                <TextField fx:id="tfInsertRegion1" promptText="Region" />
+                                                <TextField fx:id="tfUpdateRegion" promptText="Region" />
                                              </children>
                                           </VBox>
                                           <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.rowIndex="7">
                                              <children>
                                                 <Label text="PostalCode: " />
-                                                <TextField fx:id="tfInsertPostalCode1" promptText="PostalCode" />
+                                                <TextField fx:id="tfUpdatePostalCode" promptText="PostalCode" />
                                              </children>
                                           </VBox>
                                           <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.rowIndex="8">
                                              <children>
                                                 <Label text="Country: " />
-                                                <TextField fx:id="tfInsertCountry1" promptText="Country" />
+                                                <TextField fx:id="tfUpdateCountry" promptText="Country" />
                                              </children>
                                           </VBox>
                                           <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.rowIndex="9">
                                              <children>
                                                 <Label text="Phone: " />
-                                                <TextField fx:id="tfInsertPhone1" promptText="Phone" />
+                                                <TextField fx:id="tfUpdatePhone" promptText="Phone" />
                                              </children>
                                           </VBox>
                                           <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.rowIndex="10">
                                              <children>
                                                 <Label text="Fax: " />
-                                                <TextField fx:id="tfInsertFax1" promptText="Fax" />
+                                                <TextField fx:id="tfUpdateFax" promptText="Fax" />
                                              </children>
                                           </VBox>
                                           <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="11">
                                              <children>
-                                                <Button fx:id="btnUpdateConfirmCustomer" mnemonicParsing="false" onAction="#actionCustomers" text="Confirm" />
+                                                <Button fx:id="btnUpdateCustomer" mnemonicParsing="false" onAction="#actionCustomers" text="Update customer" />
                                                 <Separator prefWidth="10.0" />
-                                                <Label fx:id="labelInsertError1" text="Error: Invalid input. Operation aborted!" textFill="RED" visible="false" wrapText="true" />
+                                                <Label fx:id="labelUpdateError" text="Error: Invalid input. Operation aborted!" textFill="RED" visible="false" wrapText="true" />
                                              </children>
                                           </HBox>
                                        </children>
@@ -310,6 +305,11 @@
                                        </padding>
                                     </GridPane>
                                  </children></AnchorPane>
+                           </content>
+                        </Tab>
+                        <Tab text="Remove">
+                           <content>
+                              <AnchorPane />
                            </content>
                         </Tab>
                      </tabs>

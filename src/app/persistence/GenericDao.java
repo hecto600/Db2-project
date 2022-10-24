@@ -8,10 +8,10 @@ public class GenericDao {
     private Connection con;
 
     public Connection getConnection() throws ClassNotFoundException, SQLException{
-        String hostname = "localhost";
-        String dbName = "TODO";
-        String user = "TODO";
-        String pw = "TODO";
+        String hostname = "DESKTOP-CQHO7Q7/SQLEXPRESS";
+        String dbName = "Northwind";
+        String user = "DESKTOP-CQHO7Q7";
+        String pw = "";
 
         Class.forName("net.sourceforge.jtds.jdbc.Driver");
 
