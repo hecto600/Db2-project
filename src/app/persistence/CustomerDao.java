@@ -23,6 +23,7 @@ public class CustomerDao implements InterfaceCustomerDao {
                 "CustomerID, " +
                 "CompanyName, " +
                 "ContactName, " +
+                "ContactTitle, "+
                 "Address, " +
                 "City, " +
                 "Region, " +
@@ -42,6 +43,7 @@ public class CustomerDao implements InterfaceCustomerDao {
             c.setCustomerID(rs.getString("CustomerID"));
             c.setCompanyName(rs.getString("CompanyName"));
             c.setContactName(rs.getString("ContactName"));
+            c.setContactTitle(rs.getString("ContactTitle"));
             c.setAddress(rs.getString("Address"));
             c.setCity(rs.getString("City"));
             c.setRegion(rs.getString("Region"));
@@ -63,6 +65,7 @@ public class CustomerDao implements InterfaceCustomerDao {
                 "CustomerID, " +
                 "CompanyName, " +
                 "ContactName, " +
+                "ContactTitle, "+
                 "Address, " +
                 "City, " +
                 "Region, " +
@@ -81,6 +84,7 @@ public class CustomerDao implements InterfaceCustomerDao {
             c.setCustomerID(rs.getString("CustomerID"));
             c.setCompanyName(rs.getString("CompanyName"));
             c.setContactName(rs.getString("ContactName"));
+            c.setContactTitle(rs.getString("ContactTitle"));
             c.setAddress(rs.getString("Address"));
             c.setCity(rs.getString("City"));
             c.setRegion(rs.getString("Region"));
@@ -102,15 +106,39 @@ public class CustomerDao implements InterfaceCustomerDao {
         String sql = "UPDATE Customers SET " +
                 "CompanyName = ?, " +
                 "ContactName = ?, " +
+                "ContactTitle = ?, " +
                 "Address = ?, " +
                 "City = ?, " +
                 "Region = ?, " +
                 "PostalCode = ?, " +
                 "Country = ?, " +
                 "Phone = ?, " +
-                "Fax = ?, " +
+                "Fax = ? " +
                 "WHERE CustomerID = ? ";
 
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, c.getCompanyName());
+        ps.setString(2, c.getContactName());
+        ps.setString(3, c.getContactTitle());
+        ps.setString(4, c.getAddress());
+        ps.setString(5, c.getCity());
+        ps.setString(6, c.getRegion());
+        ps.setString(7, c.getPostalCode());
+        ps.setString(8, c.getCountry());
+        ps.setString(9, c.getPhone());
+        ps.setString(10, c.getFax());
+        ps.setString(11, c.getCustomerID());
+
+
+        ps.execute();
+        ps.close();
+
+    }
+
+    @Override
+    public void insertCustomer(Customer c) throws SQLException {
+        String sql = "INSERT INTO " +
+                "Customers VALUES(?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, c.getCustomerID());
         ps.setString(2, c.getCompanyName());
@@ -126,32 +154,11 @@ public class CustomerDao implements InterfaceCustomerDao {
 
         ps.execute();
         ps.close();
-
-    }
-
-    @Override
-    public void insertCustomer(Customer c) throws SQLException {
-        String sql = "INSERT INTO " +
-                "Customers VALUES(?,?,?,?,?,?,?,?,?,?)";
-        PreparedStatement ps = con.prepareStatement(sql);
-        ps.setString(1, c.getCompanyName());
-        ps.setString(2, c.getContactName());
-        ps.setString(3, c.getContactTitle());
-        ps.setString(4, c.getAddress());
-        ps.setString(5, c.getCity());
-        ps.setString(6, c.getRegion());
-        ps.setString(7, c.getPostalCode());
-        ps.setString(8, c.getCountry());
-        ps.setString(9, c.getPhone());
-        ps.setString(10, c.getFax());
-
-        ps.execute();
-        ps.close();
     }
 
     @Override
     public void removeCustomer(Customer c) throws SQLException {
-        String sql = "DELETE Customers WHERE CustomerID = ?";
+        String sql = "DELETE FROM Customers WHERE CustomerID = ?";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, c.getCustomerID());
 
