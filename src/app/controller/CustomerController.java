@@ -23,12 +23,23 @@ public class CustomerController implements InterfaceCustomerController {
     private TextField tfFax;
     private TextArea taResult;
 
-    public CustomerController(TextField tfCustomerID, TextArea tA){
+    public CustomerController(TextField tfCustomerID, TextArea tA) {
         this.tfCustomerID = tfCustomerID;
         this.taResult = tA;
+        this.tfCompanyName = new TextField("");
+        this.tfContactName = new TextField("");
+        this.tfContactTitle = new TextField("");
+        this.tfAdress = new TextField("");
+        this.tfCity = new TextField("");
+        this.tfRegion = new TextField("");
+        this.tfPostalCode = new TextField("");
+        this.tfCountry = new TextField("");
+        this.tfPhone = new TextField("");
+        this.tfFax = new TextField("");
+        this.taResult = new TextArea("");
     }
 
-    //insert && update
+    // insert && update
     public CustomerController(TextField tfID, TextField tfCN, TextField tfCName,
             TextField tfCT,
             TextField tfA, TextField tfCity,
@@ -47,7 +58,6 @@ public class CustomerController implements InterfaceCustomerController {
         this.tfFax = tfF;
         this.taResult = taR;
     }
-
 
     @Override
     public void insertCustomer(Customer c) throws ClassNotFoundException, SQLException {
@@ -76,16 +86,17 @@ public class CustomerController implements InterfaceCustomerController {
     }
 
     @Override
-    public void visualizeCustomer(Customer c) throws ClassNotFoundException, SQLException {
+    public Customer visualizeCustomer(Customer c) throws ClassNotFoundException, SQLException {
         customerCleanFields();
 
         CustomerDao cDao = new CustomerDao();
+        c = cDao.visualizeCustomer(c);
 
         tfCustomerID.setText(c.getCustomerID());
         tfCompanyName.setText(c.getCompanyName());
         tfContactName.setText(c.getContactName());
         tfContactTitle.setText(c.getContactTitle());
-        tfAdress.setText(c.getAddres());
+        tfAdress.setText(c.getAddress());
         tfCity.setText(c.getCity());
         tfRegion.setText(c.getRegion());
         tfPostalCode.setText(c.getPostalCode());
@@ -93,12 +104,15 @@ public class CustomerController implements InterfaceCustomerController {
         tfPhone.setText(c.getPhone());
         tfFax.setText(c.getFax());
 
-        c = cDao.visualizeCustomer(c);
+        if (c.getCustomerID() == null)
+            return null;
+        else
+            return c;
 
     }
 
     @Override
-    public void visualizeAllCustomers() throws ClassNotFoundException, SQLException {
+    public String visualizeAllCustomers() throws ClassNotFoundException, SQLException {
         customerCleanFields();
 
         CustomerDao cDao = new CustomerDao();
@@ -107,25 +121,25 @@ public class CustomerController implements InterfaceCustomerController {
         StringBuffer buffer = new StringBuffer("\t\t\tList of all customers from database");
         for (Customer c : cList) {
             buffer.append(
-                    "CustomerID: " + c.getCustomerID() +
-                            "\tCompanyName: " + c.getCompanyName() +
-                            "\tContactName: " + c.getCity() +
-                            "\tAdress: " + c.getCity() +
-                            "\tCity: " + c.getCity() +
-                            "\tRegion: " + c.getCity() +
-                            "\tPostalCode: " + c.getCity() +
-                            "\tCountry: " + c.getCity() +
-                            "\tPhone: " + c.getCity() +
-                            "\tFax: " + c.getCity() +
+                    "\nCustomerID: " + c.getCustomerID() +
+                            "\n\tCompanyName: " + c.getCompanyName() +
+                            "\n\tContactName: " + c.getContactName() +
+                            "\n\tContactTitle:" + c.getContactTitle() +
+                            "\n\tAdress: " + c.getAddress() +
+                            "\n\tCity: " + c.getCity() +
+                            "\n\tRegion: " + c.getRegion() +
+                            "\n\tPostalCode: " + c.getPostalCode() +
+                            "\n\tCountry: " + c.getCountry() +
+                            "\n\tPhone: " + c.getPhone() +
+                            "\n\tFax: " + c.getFax() +
                             "\n");
         }
-        taResult.setText(buffer.toString());
+        return buffer.toString();
 
     }
 
     private void customerCleanFields() {
 
-            
         tfCustomerID.setText("");
         if (tfCompanyName != null && taResult != null) {
             tfCompanyName.setText("");

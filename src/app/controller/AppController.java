@@ -165,14 +165,14 @@ public class AppController {
         switch (type) {
             case "visualize":
                 c.setCustomerID(tfVisualizeCustomerID.getText());
-
                 break;
+
             case "insert":
                 c.setCustomerID(tfInsertCustomerID.getText());
                 c.setCompanyName(tfInsertCompanyName.getText());
                 c.setContactName(tfInsertContactName.getText());
                 c.setContactTitle(tfInsertContactTitle.getText());
-                c.setAddres(tfInsertAddress.getText());
+                c.setAddress(tfInsertAddress.getText());
                 c.setCity(tfInsertCity.getText());
                 c.setRegion(tfInsertRegion.getText());
                 c.setPostalCode(tfInsertPostalCode.getText());
@@ -186,7 +186,7 @@ public class AppController {
                 c.setCompanyName(tfUpdateCompanyName.getText());
                 c.setContactName(tfUpdateContactName.getText());
                 c.setContactTitle(tfUpdateContactTitle.getText());
-                c.setAddres(tfUpdateAddress.getText());
+                c.setAddress(tfUpdateAddress.getText());
                 c.setCity(tfUpdateCity.getText());
                 c.setRegion(tfUpdateRegion.getText());
                 c.setPostalCode(tfUpdatePostalCode.getText());
@@ -230,21 +230,25 @@ public class AppController {
             switch (cmd) {
                 case "btnVisualizeCustomer":
                     customerController = createCustomerController(VISUALIZE);
-
+                    fullfillField(c, VISUALIZE);
                     if (tfVisualizeCustomerID.getText().isEmpty()) {
                         labelVisualizeRequiredField.setVisible(true);
                         labelVisualizeError.setVisible(true);
-                    } else {
-                        fullfillField(c, VISUALIZE);
+                    } else{
+                        
                         taVisualizeResult.setText("Searched customerID: " + c.getCustomerID());
-                        customerController.visualizeCustomer(c);
-                        c.setCustomerID(tfVisualizeCustomerID.getText());
+                        c = customerController.visualizeCustomer(c);
+                        if(c != null)
+                            taVisualizeResult.setText(c.toString());
+                        else
+                            taVisualizeResult.setText("Customer not found.");
                     }
+
                     break;
 
                 case "btnVisualizeAllCustomers":
                     customerController = createCustomerController(VISUALIZE);
-                    customerController.visualizeAllCustomers();
+                    taVisualizeResult.setText(customerController.visualizeAllCustomers());
                     break;
 
                 case "btnInsertCustomer":

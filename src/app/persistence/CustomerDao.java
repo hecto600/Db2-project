@@ -23,7 +23,7 @@ public class CustomerDao implements InterfaceCustomerDao {
                 "CustomerID, " +
                 "CompanyName, " +
                 "ContactName, " +
-                "Adress, " +
+                "Address, " +
                 "City, " +
                 "Region, " +
                 "PostalCode, " +
@@ -42,7 +42,7 @@ public class CustomerDao implements InterfaceCustomerDao {
             c.setCustomerID(rs.getString("CustomerID"));
             c.setCompanyName(rs.getString("CompanyName"));
             c.setContactName(rs.getString("ContactName"));
-            c.setAddres(rs.getString("Adress"));
+            c.setAddress(rs.getString("Address"));
             c.setCity(rs.getString("City"));
             c.setRegion(rs.getString("Region"));
             c.setPostalCode(rs.getString("PostalCode"));
@@ -63,7 +63,7 @@ public class CustomerDao implements InterfaceCustomerDao {
                 "CustomerID, " +
                 "CompanyName, " +
                 "ContactName, " +
-                "Adress, " +
+                "Address, " +
                 "City, " +
                 "Region, " +
                 "PostalCode, " +
@@ -81,7 +81,7 @@ public class CustomerDao implements InterfaceCustomerDao {
             c.setCustomerID(rs.getString("CustomerID"));
             c.setCompanyName(rs.getString("CompanyName"));
             c.setContactName(rs.getString("ContactName"));
-            c.setAddres(rs.getString("Adress"));
+            c.setAddress(rs.getString("Address"));
             c.setCity(rs.getString("City"));
             c.setRegion(rs.getString("Region"));
             c.setPostalCode(rs.getString("PostalCode"));
@@ -102,7 +102,7 @@ public class CustomerDao implements InterfaceCustomerDao {
         String sql = "UPDATE Customers SET " +
                 "CompanyName = ?, " +
                 "ContactName = ?, " +
-                "Adress = ?, " +
+                "Address = ?, " +
                 "City = ?, " +
                 "Region = ?, " +
                 "PostalCode = ?, " +
@@ -116,7 +116,7 @@ public class CustomerDao implements InterfaceCustomerDao {
         ps.setString(2, c.getCompanyName());
         ps.setString(3, c.getContactName());
         ps.setString(4, c.getContactTitle());
-        ps.setString(5, c.getAddres());
+        ps.setString(5, c.getAddress());
         ps.setString(6, c.getCity());
         ps.setString(7, c.getRegion());
         ps.setString(8, c.getPostalCode());
@@ -137,7 +137,7 @@ public class CustomerDao implements InterfaceCustomerDao {
         ps.setString(1, c.getCompanyName());
         ps.setString(2, c.getContactName());
         ps.setString(3, c.getContactTitle());
-        ps.setString(4, c.getAddres());
+        ps.setString(4, c.getAddress());
         ps.setString(5, c.getCity());
         ps.setString(6, c.getRegion());
         ps.setString(7, c.getPostalCode());
