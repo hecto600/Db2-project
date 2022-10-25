@@ -102,7 +102,7 @@ public class CustomerDao implements InterfaceCustomerDao {
     }
 
     @Override
-    public void updateCustomer(Customer c) throws SQLException {
+    public Customer updateCustomer(Customer c) throws SQLException {
         String sql = "UPDATE Customers SET " +
                 "CompanyName = ?, " +
                 "ContactName = ?, " +
@@ -132,11 +132,12 @@ public class CustomerDao implements InterfaceCustomerDao {
 
         ps.execute();
         ps.close();
+        return visualizeCustomer(c);
 
     }
 
     @Override
-    public void insertCustomer(Customer c) throws SQLException {
+    public Customer insertCustomer(Customer c) throws SQLException {
         String sql = "INSERT INTO " +
                 "Customers VALUES(?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement ps = con.prepareStatement(sql);
@@ -154,16 +155,17 @@ public class CustomerDao implements InterfaceCustomerDao {
 
         ps.execute();
         ps.close();
+        return visualizeCustomer(c);
     }
 
     @Override
-    public void removeCustomer(Customer c) throws SQLException {
+    public Customer removeCustomer(Customer c) throws SQLException {
         String sql = "DELETE FROM Customers WHERE CustomerID = ?";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, c.getCustomerID());
 
         ps.execute();
         ps.close();
-
+        return visualizeCustomer(c);
     }
 }

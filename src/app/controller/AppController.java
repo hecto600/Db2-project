@@ -335,11 +335,13 @@ public class AppController {
                     } else {
                         fullfillField(c, "insert");
 
-                        customerController.insertCustomer(c);
+                        c = customerController.insertCustomer(c);
+                        taInsertResult.setText("The last customer profile inserted:\n" + c.toString());
 
                         labelInsertError.setVisible(true);
                         labelInsertError.setTextFill(Color.GREEN);
                         labelInsertError.setText("Customer added successfully!");
+                        
                     }
                     break;
 
@@ -353,7 +355,9 @@ public class AppController {
                     } else {
                         fullfillField(c, "update");
 
-                        customerController.updateCustomer(c);
+                        c = customerController.updateCustomer(c);
+                        taUpdateResult.setText("The last customer profile updated:\n" + c.toString());
+
 
                         labelUpdateError.setVisible(true);
                         labelUpdateError.setTextFill(Color.GREEN);
@@ -372,6 +376,8 @@ public class AppController {
                         fullfillField(c, REMOVE);
 
                         customerController.removeCustomer(c);
+                        taRemoveResult.setText("The last customer profile deleted:\n" + c.toString());
+
 
                         labelRemoveError.setVisible(true);
                         labelRemoveError.setTextFill(Color.GREEN);

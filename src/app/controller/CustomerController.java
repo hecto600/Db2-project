@@ -60,28 +60,25 @@ public class CustomerController implements InterfaceCustomerController {
     }
 
     @Override
-    public void insertCustomer(Customer c) throws ClassNotFoundException, SQLException {
+    public Customer insertCustomer(Customer c) throws ClassNotFoundException, SQLException {
         customerCleanFields();
         CustomerDao cDao = new CustomerDao();
-        cDao.insertCustomer(c);
-        visualizeAllCustomers();
-
+        return cDao.insertCustomer(c);
+        
     }
 
     @Override
-    public void updateCustomer(Customer c) throws ClassNotFoundException, SQLException {
+    public Customer updateCustomer(Customer c) throws ClassNotFoundException, SQLException {
         customerCleanFields();
         CustomerDao cDao = new CustomerDao();
-        cDao.updateCustomer(c);
-        visualizeAllCustomers();
+        return cDao.updateCustomer(c);
     }
 
     @Override
-    public void removeCustomer(Customer c) throws ClassNotFoundException, SQLException {
+    public Customer removeCustomer(Customer c) throws ClassNotFoundException, SQLException {
         customerCleanFields();
         CustomerDao cDao = new CustomerDao();
-        cDao.removeCustomer(c);
-        visualizeAllCustomers();
+        return cDao.removeCustomer(c);
 
     }
 
