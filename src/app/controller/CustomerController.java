@@ -118,21 +118,39 @@ public class CustomerController implements InterfaceCustomerController {
         CustomerDao cDao = new CustomerDao();
         List<Customer> cList = cDao.visualizeAllCustomers();
 
-        StringBuffer buffer = new StringBuffer("\t\t\tList of all customers from database");
+        StringBuffer buffer = new StringBuffer(
+                String.format(
+                        "%-50s\t\t\t\t\t" +
+                        "%-50s\t\t\t\t\t" +
+                        "%-50s\t\t\t\t\t" +
+                        "%-50s\t\t\t\t\t" +
+                        "%-50s\t\t\t\t\t" +
+                        "%-50s\t\t\t\t\t" +
+                        "%-50s\t\t\t\t\t" +
+                        "%-50s\t\t\t\t\t" +
+                        "%-50s\t\t\t\t\t" +
+                        "%-50s\t\t\t\t\t" +
+                        "%-50s\t\t\t\t\t\n",
+                        "CustomerID",
+                        "CompanyName", "ContactName", "ContactTitle", "Address", "City", "PostalCode","Region" ,"Country",
+                        "Phone", "Fax"));
         for (Customer c : cList) {
             buffer.append(
-                    "\nCustomerID: " + c.getCustomerID() +
-                            "\n\tCompanyName: " + c.getCompanyName() +
-                            "\n\tContactName: " + c.getContactName() +
-                            "\n\tContactTitle:" + c.getContactTitle() +
-                            "\n\tAdress: " + c.getAddress() +
-                            "\n\tCity: " + c.getCity() +
-                            "\n\tRegion: " + c.getRegion() +
-                            "\n\tPostalCode: " + c.getPostalCode() +
-                            "\n\tCountry: " + c.getCountry() +
-                            "\n\tPhone: " + c.getPhone() +
-                            "\n\tFax: " + c.getFax() +
-                            "\n");
+                    String.format(
+                    "%-50s\t\t\t\t\t"+
+                    "%-50s\t\t\t\t\t"+ 
+                    "%-50s\t\t\t\t\t"+ 
+                    "%-50s\t\t\t\t\t"+ 
+                    "%-50s\t\t\t\t\t"+ 
+                    "%-50s\t\t\t\t\t"+ 
+                    "%-50s\t\t\t\t\t"+ 
+                    "%-50s\t\t\t\t\t"+ 
+                    "%-50s\t\t\t\t\t"+ 
+                    "%-50s\t\t\t\t\t"+ 
+                    "%-50s\t\t\t\t\n",c.getCustomerID(), c.getCompanyName(),c.getContactName(),c.getContactTitle(), 
+                    c.getAddress(), c.getCity(), c.getPostalCode(), c.getRegion(), 
+                    c.getCountry(),c.getPhone(),c.getFax()
+                    ));
         }
         return buffer.toString();
 
