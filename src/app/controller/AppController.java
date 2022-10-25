@@ -298,7 +298,7 @@ public class AppController {
             final String INSERT = "insert";
             final String UPDATE = "update";
             final String REMOVE = "remove";
-
+            taVisualizeResult.setStyle("-fx-font-family: monospace");
             Customer c = new Customer();
             switch (cmd) {
                 case "btnVisualizeCustomer":
