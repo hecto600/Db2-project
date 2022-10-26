@@ -1,17 +1,18 @@
 package app.model;
 
 public class Customer {
-    private String customerID;
-    private String companyName;
-    private String contactName;
-    private String contactTitle;
-    private String address;
-    private String city;
-    private String region;
-    private String postalCode;
-    private String country;
-    private String phone;
-    private String fax;
+    private String customerID = new String();
+    private String companyName = new String();
+    private String contactName = new String();
+    private String contactTitle = new String();
+    private String address = new String();
+    private String city = new String();
+    private String region = new String();
+    private String postalCode = new String();
+    private String country = new String();
+    private String phone = new String();
+    private String fax = new String();
+
 
     public String getCustomerID() {
         return customerID;

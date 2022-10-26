@@ -160,12 +160,13 @@ public class CustomerDao implements InterfaceCustomerDao {
 
     @Override
     public Customer removeCustomer(Customer c) throws SQLException {
+        // TODO HERE!!! get customer from db and put in c variable then return to tell the deleted customer
         String sql = "DELETE FROM Customers WHERE CustomerID = ?";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, c.getCustomerID());
 
         ps.execute();
         ps.close();
-        return visualizeCustomer(c);
+        return c;
     }
 }

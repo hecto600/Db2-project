@@ -15,6 +15,7 @@ import javafx.scene.paint.Color;
 
 public class AppController {
 
+   
     @FXML
     private Button btnInsertCustomer;
 
@@ -40,6 +41,9 @@ public class AppController {
     private Label labelInsertError;
 
     @FXML
+    private Label labelInsertErrorMessage;
+
+    @FXML
     private Label labelOrderRequiredField;
 
     @FXML
@@ -53,6 +57,9 @@ public class AppController {
 
     @FXML
     private Label labelUpdateError;
+
+    @FXML
+    private Label labelUpdateErrorMessage;
 
     @FXML
     private Label labelVisualizeError;
@@ -279,6 +286,22 @@ public class AppController {
 
     }
 
+    void setElementsDefaultState() {
+        labelVisualizeErrorMessage.setVisible(false);
+        labelVisualizeRequiredField.setVisible(false);
+        labelVisualizeError.setVisible(false);
+
+        labelInsertError.setVisible(false);
+        labelInsertErrorMessage.setVisible(false);
+
+        labelUpdateError.setVisible(false);
+        labelUpdateErrorMessage.setVisible(false);
+
+        labelRemoveError.setVisible(false);
+        labelRemoveRequiredField.setVisible(false);
+
+    }
+
     @FXML
     void actionCustomers(ActionEvent event) {
         String cmd = event.getSource().toString();
@@ -286,33 +309,28 @@ public class AppController {
         cmd = cmd.substring(cmd.indexOf("=") + 1, cmd.indexOf(","));
 
         try {
-            // Setting the errors message to false
-            labelVisualizeErrorMessage.setVisible(false);
-            labelVisualizeRequiredField.setVisible(false);
-            labelVisualizeError.setVisible(false);
-            labelInsertError.setVisible(false);
-            labelUpdateError.setVisible(false);
-            labelRemoveError.setVisible(false);
-            labelRemoveRequiredField.setVisible(false);
+            
             final String VISUALIZE = "visualize";
             final String INSERT = "insert";
             final String UPDATE = "update";
             final String REMOVE = "remove";
-            taVisualizeResult.setStyle("-fx-font-family: monospace");
+            setElementsDefaultState();
             Customer c = new Customer();
+
             switch (cmd) {
                 case "btnVisualizeCustomer":
                     customerController = createCustomerController(VISUALIZE);
                     fullfillField(c, VISUALIZE);
+
                     if (tfVisualizeCustomerID.getText().isEmpty()) {
                         labelVisualizeRequiredField.setVisible(true);
                         labelVisualizeError.setVisible(true);
                     } else {
 
-                        taVisualizeResult.setText("Searched customerID: " + c.getCustomerID());
                         c = customerController.visualizeCustomer(c);
                         if (c != null)
-                            taVisualizeResult.setText(c.toString());
+                            taVisualizeResult
+                                    .setText("Searched customerID: " + c.getCustomerID() + "\n" + c.toString());
                         else
                             taVisualizeResult.setText("Customer not found.");
                     }
@@ -327,13 +345,13 @@ public class AppController {
                 case "btnInsertCustomer":
                     customerController = createCustomerController(INSERT);
 
-                    if (isFieldsNull("insert")) {
+                    if (isFieldsNull(INSERT)) {
                         labelInsertError.setVisible(true);
                         labelInsertError.setTextFill(Color.RED);
                         labelInsertError.setText("Error: All inputs must be fullfilled! Operation aborted.");
 
                     } else {
-                        fullfillField(c, "insert");
+                        fullfillField(c, INSERT);
 
                         c = customerController.insertCustomer(c);
                         taInsertResult.setText("The last customer profile inserted:\n" + c.toString());
@@ -341,23 +359,22 @@ public class AppController {
                         labelInsertError.setVisible(true);
                         labelInsertError.setTextFill(Color.GREEN);
                         labelInsertError.setText("Customer added successfully!");
-                        
+
                     }
                     break;
 
                 case "btnUpdateCustomer":
                     customerController = createCustomerController(UPDATE);
 
-                    if (isFieldsNull("update")) {
+                    if (isFieldsNull(UPDATE)) {
                         labelUpdateError.setVisible(true);
                         labelUpdateError.setTextFill(Color.RED);
                         labelUpdateError.setText("Error: All inputs must be fullfilled! Operation aborted.");
                     } else {
-                        fullfillField(c, "update");
+                        fullfillField(c, UPDATE);
 
                         c = customerController.updateCustomer(c);
                         taUpdateResult.setText("The last customer profile updated:\n" + c.toString());
-
 
                         labelUpdateError.setVisible(true);
                         labelUpdateError.setTextFill(Color.GREEN);
@@ -370,14 +387,14 @@ public class AppController {
 
                     if (tfRemoveCustomerID.getText().isEmpty()) {
                         labelRemoveError.setVisible(true);
+                        labelRemoveError.setTextFill(Color.RED);
                         labelRemoveRequiredField.setVisible(true);
                         labelRemoveError.setText("Invalid CustomerID!");
                     } else {
                         fullfillField(c, REMOVE);
 
-                        customerController.removeCustomer(c);
+                        c = customerController.removeCustomer(c);
                         taRemoveResult.setText("The last customer profile deleted:\n" + c.toString());
-
 
                         labelRemoveError.setVisible(true);
                         labelRemoveError.setTextFill(Color.GREEN);
@@ -389,9 +406,46 @@ public class AppController {
             }
         } catch (ClassNotFoundException | SQLException se) {
             se.printStackTrace();
-            labelVisualizeErrorMessage.setText(se.getMessage());
             labelVisualizeErrorMessage.setVisible(true);
+            labelVisualizeErrorMessage.setText(se.getMessage());
+
+            labelInsertErrorMessage.setVisible(true);
+            labelInsertErrorMessage.setTextFill(Color.RED);
+            labelInsertErrorMessage.setText(se.getMessage());
+
+            labelUpdateErrorMessage.setVisible(true);
+            labelUpdateErrorMessage.setText(se.getMessage());
+
+            labelRemoveErrorMessage.setVisible(true);
+            labelRemoveErrorMessage.setText(se.getMessage());
         }
+    }
+    @FXML
+    void actionOrders(ActionEvent event) {
+
+    }
+
+    @FXML
+    void initialize() {
+        taVisualizeResult.setStyle("-fx-font-family: monospace");
+        taInsertResult.setStyle("-fx-font-family: monospace");
+        taUpdateResult.setStyle("-fx-font-family: monospace");
+        taRemoveResult.setStyle("-fx-font-family: monospace");
+
+        labelVisualizeErrorMessage.setVisible(false);
+        labelVisualizeRequiredField.setVisible(false);
+        labelVisualizeError.setVisible(false);
+
+        labelInsertError.setVisible(false);
+        labelInsertErrorMessage.setVisible(false);
+
+        labelUpdateError.setVisible(false);
+        labelUpdateErrorMessage.setVisible(false);
+
+        labelRemoveError.setVisible(false);
+        labelRemoveErrorMessage.setVisible(false);
+        labelRemoveRequiredField.setVisible(false);
+        
     }
 
 }

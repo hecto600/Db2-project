@@ -64,7 +64,7 @@ public class CustomerController implements InterfaceCustomerController {
         customerCleanFields();
         CustomerDao cDao = new CustomerDao();
         return cDao.insertCustomer(c);
-        
+
     }
 
     @Override
@@ -117,37 +117,67 @@ public class CustomerController implements InterfaceCustomerController {
 
         StringBuffer buffer = new StringBuffer(
                 String.format(
-                        "%-45s" +
-                        "%-45s" +
-                        "%-45s" +
-                        "%-45s" +
-                        "%-45s" +
-                        "%-45s" +
-                        "%-45s" +
-                        "%-45s" +
-                        "%-45s" +
-                        "%-45s" +
-                        "%-45s\n\n",
+                        "%-45s|" +
+                                "%-45s|" +
+                                "%-45s|" +
+                                "%-45s|" +
+                                "%-45s|" +
+                                "%-45s|" +
+                                "%-45s|" +
+                                "%-45s|" +
+                                "%-45s|" +
+                                "%-45s|" +
+                                "%-45s|\n",
                         "CustomerID",
-                        "CompanyName", "ContactName", "ContactTitle", "Address", "City", "PostalCode","Region" ,"Country",
+                        "CompanyName", "ContactName", "ContactTitle", "Address", "City", "PostalCode", "Region",
+                        "Country",
                         "Phone", "Fax"));
+        buffer.append(String.format(
+                "%-45s|" +
+                        "%-45s|" +
+                        "%-45s|" +
+                        "%-45s|" +
+                        "%-45s|" +
+                        "%-45s|" +
+                        "%-45s|" +
+                        "%-45s|" +
+                        "%-45s|" +
+                        "%-45s|" +
+                        "%-45s|\n",
+                "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-").replace(" ", "-"));
+
         for (Customer c : cList) {
             buffer.append(
                     String.format(
-                    "%-45s"+
-                    "%-45s"+ 
-                    "%-45s"+ 
-                    "%-45s"+ 
-                    "%-45s"+ 
-                    "%-45s"+ 
-                    "%-45s"+ 
-                    "%-45s"+ 
-                    "%-45s"+ 
-                    "%-45s"+ 
-                    "%-45s\n",c.getCustomerID(), c.getCompanyName(),c.getContactName(),c.getContactTitle(), 
-                    c.getAddress(), c.getCity(), c.getPostalCode(), c.getRegion(), 
-                    c.getCountry(),c.getPhone(),c.getFax()
-                    ));
+                            "%-45s|" +
+                                    "%-45s|" +
+                                    "%-45s|" +
+                                    "%-45s|" +
+                                    "%-45s|" +
+                                    "%-45s|" +
+                                    "%-45s|" +
+                                    "%-45s|" +
+                                    "%-45s|" +
+                                    "%-45s|" +
+                                    "%-45s|\n",
+                            c.getCustomerID(), c.getCompanyName(), c.getContactName(), c.getContactTitle(),
+                            c.getAddress(), c.getCity(), c.getPostalCode(), c.getRegion(),
+                            c.getCountry(), c.getPhone(), c.getFax()));
+
+            buffer.append(String.format(
+                    "%-45s|" +
+                            "%-45s|" +
+                            "%-45s|" +
+                            "%-45s|" +
+                            "%-45s|" +
+                            "%-45s|" +
+                            "%-45s|" +
+                            "%-45s|" +
+                            "%-45s|" +
+                            "%-45s|" +
+                            "%-45s|\n",
+                    "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-").replace(" ", "-"));
+
         }
         return buffer.toString();
 
