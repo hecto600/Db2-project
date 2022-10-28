@@ -22,20 +22,20 @@ public class Order {
     @Override
     public String toString() {
 
-        return "OrderID:" + orderID +
-                "CustomerID: " + customerID +
-                "EmployeeID: " + employeeID +
-                "OrderDate: " + orderDate +
-                "RequiredDate: " + requiredDate +
-                "ShippedDate: " + shippedDate +
-                "ShipVia: " + shipVia +
-                "Freight: " + freight +
-                "ShipName: " + shipName +
-                "ShipAddress: " + shipAddress +
-                "ShipCity: " + shipCity +
-                "ShipRegion: " + shipRegion +
-                "ShipPostalCode: " + shipPostalCode +
-                "ShipCountry: " + shipCountry;
+        return "\tOrderID:" + orderID +
+               "\n\tCustomerID: " + customerID +
+               "\n\tEmployeeID: " + employeeID +
+               "\n\tOrderDate: " + orderDate +
+               "\n\tRequiredDate: " + requiredDate +
+               "\n\tShippedDate: " + shippedDate +
+               "\n\tShipVia: " + shipVia +
+               "\n\tFreight: " + freight +
+               "\n\tShipName: " + shipName +
+               "\n\tShipAddress: " + shipAddress +
+               "\n\tShipCity: " + shipCity +
+               "\n\tShipRegion: " + shipRegion +
+               "\n\tShipPostalCode: " + shipPostalCode +
+               "\n\tShipCountry: " + shipCountry;
 
     }
 

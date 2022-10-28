@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.model.Customer;
+import app.model.Order;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -15,7 +16,6 @@ import javafx.scene.paint.Color;
 
 public class AppController {
 
-   
     @FXML
     private Button btnInsertCustomer;
 
@@ -309,7 +309,7 @@ public class AppController {
         cmd = cmd.substring(cmd.indexOf("=") + 1, cmd.indexOf(","));
 
         try {
-            
+
             final String VISUALIZE = "visualize";
             final String INSERT = "insert";
             final String UPDATE = "update";
@@ -420,13 +420,55 @@ public class AppController {
             labelRemoveErrorMessage.setText(se.getMessage());
         }
     }
+
+    void orderSetElementsDefaultState() {
+        labelOrderRequiredField.setVisible(false);
+        labelVisualizeOrderError.setVisible(false);
+        labelVisualizeOrderMessage.setVisible(false);
+    }
+
     @FXML
     void actionOrders(ActionEvent event) {
+        orderSetElementsDefaultState();
+        OrderController orderController = new OrderController(taVisualizeOrderResult, tfVisualizeOrderID);
+        String cmd = event.getSource().toString();
+        cmd = cmd.substring(cmd.indexOf("=") + 1, cmd.indexOf(","));
+        try {
+            switch (cmd) {
+                case "btnVisualizeOrder":
+                    if (tfVisualizeOrderID.getText().isEmpty()) {
+                        labelOrderRequiredField.setVisible(true);
+                        labelVisualizeOrderError.setVisible(true);
+                    }else{
+                        Order o = new Order();
+                        o.setCustomerID(tfVisualizeOrderID.getText());
+                        orderController.visualizeOrder(o);
+                    }
+
+                    break;
+                case "btnVisualizeAllOrders":
+                    orderController.visualizeAllOrders();
+                    break;
+                default:
+                    break;
+            }
+        } catch (ClassNotFoundException | SQLException se) {
+            se.printStackTrace();
+            labelVisualizeOrderMessage.setVisible(true);
+            labelVisualizeOrderMessage.setText(se.getMessage());
+        }
 
     }
 
     @FXML
     void initialize() {
+        // Orders
+        taVisualizeOrderResult.setStyle("-fx-font-family: monospace");
+        labelOrderRequiredField.setVisible(false);
+        labelVisualizeOrderError.setVisible(false);
+        labelVisualizeOrderMessage.setVisible(false);
+
+        // Customers
         taVisualizeResult.setStyle("-fx-font-family: monospace");
         taInsertResult.setStyle("-fx-font-family: monospace");
         taUpdateResult.setStyle("-fx-font-family: monospace");
@@ -445,7 +487,7 @@ public class AppController {
         labelRemoveError.setVisible(false);
         labelRemoveErrorMessage.setVisible(false);
         labelRemoveRequiredField.setVisible(false);
-        
+
     }
 
 }

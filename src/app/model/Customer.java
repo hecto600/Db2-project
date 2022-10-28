@@ -13,7 +13,21 @@ public class Customer {
     private String phone = new String();
     private String fax = new String();
 
-
+    @Override
+    public String toString() {
+        return "CustomerID: " + customerID +
+                "\nCompanyName: " + companyName +
+                "\nContactName: " + contactName +
+                "\nContactTitle: " + contactTitle +
+                "\nAddress: " + address +
+                "\nCity: " + city +
+                "\nRegion: " + region +
+                "\nPostalCode: " + postalCode +
+                "\nCountry: " + country +
+                "\nPhone: " + phone +
+                "\nFax: " + fax;
+    }
+    
     public String getCustomerID() {
         return customerID;
     }
@@ -102,18 +116,5 @@ public class Customer {
         this.fax = fax;
     }
 
-    @Override
-    public String toString() {
-        return "CustomerID: " + customerID +
-                "\nCompanyName: " + companyName +
-                "\nContactName: " + contactName +
-                "\nContactTitle: " + contactTitle +
-                "\nAddress: " + address +
-                "\nCity: " + city +
-                "\nRegion: " + region +
-                "\nPostalCode: " + postalCode +
-                "\nCountry: " + country +
-                "\nPhone: " + phone +
-                "\nFax: " + fax;
-    }
+    
 }

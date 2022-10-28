@@ -117,7 +117,7 @@ public class CustomerController implements InterfaceCustomerController {
 
         StringBuffer buffer = new StringBuffer(
                 String.format(
-                        "%-45s|" +
+                        "|%-45s|" +
                                 "%-45s|" +
                                 "%-45s|" +
                                 "%-45s|" +
@@ -133,23 +133,23 @@ public class CustomerController implements InterfaceCustomerController {
                         "Country",
                         "Phone", "Fax"));
         buffer.append(String.format(
-                "%-45s|" +
-                        "%-45s|" +
-                        "%-45s|" +
-                        "%-45s|" +
-                        "%-45s|" +
-                        "%-45s|" +
-                        "%-45s|" +
-                        "%-45s|" +
-                        "%-45s|" +
-                        "%-45s|" +
-                        "%-45s|\n",
+                "+%-45s+" +
+                        "%-45s+" +
+                        "%-45s+" +
+                        "%-45s+" +
+                        "%-45s+" +
+                        "%-45s+" +
+                        "%-45s+" +
+                        "%-45s+" +
+                        "%-45s+" +
+                        "%-45s+" +
+                        "%-45s+\n",
                 "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-").replace(" ", "-"));
 
         for (Customer c : cList) {
             buffer.append(
                     String.format(
-                            "%-45s|" +
+                            "|%-45s|" +
                                     "%-45s|" +
                                     "%-45s|" +
                                     "%-45s|" +
@@ -165,17 +165,17 @@ public class CustomerController implements InterfaceCustomerController {
                             c.getCountry(), c.getPhone(), c.getFax()));
 
             buffer.append(String.format(
-                    "%-45s|" +
-                            "%-45s|" +
-                            "%-45s|" +
-                            "%-45s|" +
-                            "%-45s|" +
-                            "%-45s|" +
-                            "%-45s|" +
-                            "%-45s|" +
-                            "%-45s|" +
-                            "%-45s|" +
-                            "%-45s|\n",
+                    "+%-45s+" +
+                            "%-45s+" +
+                            "%-45s+" +
+                            "%-45s+" +
+                            "%-45s+" +
+                            "%-45s+" +
+                            "%-45s+" +
+                            "%-45s+" +
+                            "%-45s+" +
+                            "%-45s+" +
+                            "%-45s+\n",
                     "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-").replace(" ", "-"));
 
         }

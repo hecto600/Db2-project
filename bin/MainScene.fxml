@@ -395,51 +395,101 @@
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <GridPane layoutX="10.0" layoutY="10.0" prefHeight="741.0" prefWidth="1156.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="ALWAYS" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-                        <RowConstraints vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <VBox fillWidth="false" prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.columnIndex="1">
-                           <children>
-                              <Separator orientation="VERTICAL" prefHeight="50.0" />
-                              <HBox alignment="CENTER_LEFT" spacing="5.0">
+                  <TabPane prefHeight="741.0" prefWidth="1156.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <tabs>
+                      <Tab text="Visualize">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <Label text="Input a order ID to visualize:" />
-                                    <Label fx:id="labelOrderRequiredField" text="*Required" textFill="RED" visible="false" />
+                                    <GridPane prefHeight="741.0" prefWidth="1156.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="ALWAYS" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                                          <RowConstraints vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <VBox fillWidth="false" prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.columnIndex="1">
+                                             <children>
+                                                <Separator orientation="VERTICAL" prefHeight="50.0" />
+                                                <HBox alignment="CENTER_LEFT" spacing="5.0">
+                                                   <children>
+                                                      <Label text="Input a order ID to visualize:" />
+                                                      <Label fx:id="labelOrderRequiredField" text="*Required" textFill="RED" />
+                                                   </children>
+                                                </HBox>
+                                                <TextField fx:id="tfVisualizeOrderID" prefWidth="200.0" promptText="OrderID" />
+                                                <HBox alignment="CENTER_LEFT" spacing="5.0">
+                                                   <children>
+                                                      <Button fx:id="btnVisualizeOrder" mnemonicParsing="false" onAction="#actionOrders" text="Search order" />
+                                                      <Label fx:id="labelVisualizeOrderError" text="Invalid customerID!" textFill="RED" />
+                                                   </children>
+                                                </HBox>
+                                                <Separator orientation="VERTICAL" prefHeight="30.0" />
+                                                <Label text="Return a list of all orders in database:" />
+                                                <Button fx:id="btnVisualizeAllOrders" mnemonicParsing="false" onAction="#actionOrders" text="List all orders" />
+                                                <Label fx:id="labelVisualizeOrderMessage" text="Error message" textFill="RED" />
+                                             </children>
+                                          </VBox>
+                                          <ScrollPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                             <content>
+                                                <TextArea fx:id="taVisualizeOrderResult" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="425.0" prefWidth="955.0" />
+                                             </content>
+                                          </ScrollPane>
+                                       </children>
+                                    </GridPane>
                                  </children>
-                              </HBox>
-                              <TextField fx:id="tfVisualizeOrderID" prefWidth="200.0" promptText="OrderID" />
-                              <HBox alignment="CENTER_LEFT" spacing="5.0">
+                              </AnchorPane>
+                        </content>
+                      </Tab>
+                      <Tab text="Insert">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <Button fx:id="btnVisualizeOrder" mnemonicParsing="false" onAction="#actionOrders" text="Search order" />
-                                    <Label fx:id="labelVisualizeOrderError" text="Invalid customerID!" textFill="RED" visible="false" />
+                                    <GridPane prefHeight="712.0" prefWidth="1156.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <ScrollPane fitToHeight="true" fitToWidth="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                             <content>
+                                                <TextArea />
+                                             </content>
+                                          </ScrollPane>
+                                          <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+                                             <children>
+                                                <Label text="Select a productID(Range[1,77]):" />
+                                                <TextField />
+                                                <Label text="Label" />
+                                                <TextField />
+                                                <Button mnemonicParsing="false" text="Button" />
+                                                <Button mnemonicParsing="false" text="Add product" />
+                                                <Button mnemonicParsing="false" text="Insert a order" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </GridPane>
                                  </children>
-                              </HBox>
-                              <Separator orientation="VERTICAL" prefHeight="30.0" />
-                              <Label text="Return a list of all orders in database:" />
-                              <Button fx:id="btnVisualizeAllOrders" mnemonicParsing="false" onAction="#actionOrders" text="List all orders" />
-                              <Label fx:id="labelVisualizeOrderMessage" text="Label" textFill="RED" visible="false" />
-                           </children>
-                        </VBox>
-                        <ScrollPane GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <content>
-                              <TextArea fx:id="taVisualizeOrderResult" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="425.0" prefWidth="955.0" />
-                           </content>
-                        </ScrollPane>
-                     </children>
-                  </GridPane>
+                              </AnchorPane>
+                        </content>
+                      </Tab>
+                    </tabs>
+                  </TabPane>
                </children></AnchorPane>
          </content>
       </Tab>
-      <Tab text="Procedure/Trigger">
+      <Tab text="Procedure">
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
          </content>
