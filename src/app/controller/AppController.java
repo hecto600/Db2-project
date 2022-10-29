@@ -1,11 +1,13 @@
 package app.controller;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import app.model.Customer;
 import app.model.Order;
+import app.model.OrderDetails;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -18,6 +20,15 @@ public class AppController {
 
     @FXML
     private Button btnInsertCustomer;
+
+    @FXML
+    private Button btnOrdersDetailsInsertAddLastOrderDetails;
+
+    @FXML
+    private Button btnOrdersInsertCreateOrder;
+
+    @FXML
+    private Button btnOrdersInsertTerminateOrder;
 
     @FXML
     private Button btnRemoveCustomer;
@@ -80,6 +91,12 @@ public class AppController {
     private TextArea taInsertResult;
 
     @FXML
+    private TextArea taOrdersDetailsInsertResult;
+
+    @FXML
+    private TextArea taOrdersInsertResult;
+
+    @FXML
     private TextArea taRemoveResult;
 
     @FXML
@@ -125,6 +142,36 @@ public class AppController {
     private TextField tfInsertRegion;
 
     @FXML
+    private TextField tfOrdersDetailsInsertProductID;
+
+    @FXML
+    private TextField tfOrdersDetailsInsertQuantity;
+
+    @FXML
+    private TextField tfOrdersDetailsInsertUnitPrice;
+
+    @FXML
+    private TextField tfOrdersInsertFreight;
+
+    @FXML
+    private TextField tfOrdersInsertShipAddress;
+
+    @FXML
+    private TextField tfOrdersInsertShipCity;
+
+    @FXML
+    private TextField tfOrdersInsertShipCountry;
+
+    @FXML
+    private TextField tfOrdersInsertShipName;
+
+    @FXML
+    private TextField tfOrdersInsertShipPostalCode;
+
+    @FXML
+    private TextField tfOrdersInsertShipRegion;
+
+    @FXML
     private TextField tfRemoveCustomerID;
 
     @FXML
@@ -165,6 +212,12 @@ public class AppController {
 
     @FXML
     private TextField tfVisualizeOrderID;
+
+    final String VISUALIZE = "visualize";
+    final String INSERT = "insert";
+    final String UPDATE = "update";
+    final String REMOVE = "remove";
+    OrderController orderController;
 
     CustomerController createCustomerController(String type) {
         CustomerController cc;
@@ -310,10 +363,6 @@ public class AppController {
 
         try {
 
-            final String VISUALIZE = "visualize";
-            final String INSERT = "insert";
-            final String UPDATE = "update";
-            final String REMOVE = "remove";
             setElementsDefaultState();
             Customer c = new Customer();
 
@@ -427,19 +476,67 @@ public class AppController {
         labelVisualizeOrderMessage.setVisible(false);
     }
 
+    Order createOrderController(String type) {
+        if (type.equals(VISUALIZE)) {
+            orderController = new OrderController(taVisualizeOrderResult, tfVisualizeOrderID);
+            return null;
+        } else {
+            TextField[] tfs = new TextField[] { tfOrdersInsertFreight, tfOrdersInsertShipName,
+                    tfOrdersInsertShipAddress, tfOrdersInsertShipCity, tfOrdersInsertShipRegion,
+                    tfOrdersInsertShipPostalCode, tfOrdersInsertShipCountry };
+            for (TextField t : tfs) {
+                if (t.getText().isEmpty()) {
+                    t.setText("NULL");
+                }
+            }
+
+            Order o = new Order();
+            o.setFreight(new BigDecimal(tfOrdersInsertFreight.getText()));
+            o.setShipName(tfOrdersInsertShipName.getText());
+            o.setShipAddress(tfOrdersInsertShipAddress.getText());
+            o.setShipCity(tfOrdersInsertShipCity.getText());
+            o.setShipRegion(tfOrdersInsertShipRegion.getText());
+            o.setShipPostalCode(tfOrdersInsertShipPostalCode.getText());
+            o.setShipCountry(tfOrdersInsertShipCountry.getText());
+
+            TextField[] tfos = new TextField[] {
+                    tfOrdersDetailsInsertUnitPrice, tfOrdersDetailsInsertQuantity };
+            for (TextField t : tfos) {
+                if (t.getText().isEmpty()) {
+                    t.setText("NULL");
+                }
+
+            }
+
+            OrderDetails od = new OrderDetails();
+            od.setProductID(Integer.parseInt(tfOrdersDetailsInsertProductID.getText()));
+            od.setUnitPrice(new BigDecimal(tfOrdersDetailsInsertUnitPrice.getText()));
+            od.setQuantity(Short.parseShort(tfOrdersDetailsInsertQuantity.getText()));
+            o.setOd(od);
+
+            orderController = new OrderController(tfOrdersInsertFreight, tfOrdersInsertShipName,
+                    tfOrdersInsertShipAddress, tfOrdersInsertShipCity, tfOrdersInsertShipAddress,
+                    tfOrdersInsertShipPostalCode, tfOrdersInsertShipCountry, tfOrdersDetailsInsertProductID,
+                    tfOrdersDetailsInsertUnitPrice, tfOrdersDetailsInsertQuantity, taOrdersInsertResult,
+                    taOrdersDetailsInsertResult);
+            return o;
+        }
+    }
+
     @FXML
     void actionOrders(ActionEvent event) {
         orderSetElementsDefaultState();
-        OrderController orderController = new OrderController(taVisualizeOrderResult, tfVisualizeOrderID);
+
         String cmd = event.getSource().toString();
         cmd = cmd.substring(cmd.indexOf("=") + 1, cmd.indexOf(","));
         try {
             switch (cmd) {
                 case "btnVisualizeOrder":
+                    createOrderController(VISUALIZE);
                     if (tfVisualizeOrderID.getText().isEmpty()) {
                         labelOrderRequiredField.setVisible(true);
                         labelVisualizeOrderError.setVisible(true);
-                    }else{
+                    } else {
                         Order o = new Order();
                         o.setCustomerID(tfVisualizeOrderID.getText());
                         orderController.visualizeOrder(o);
@@ -447,8 +544,16 @@ public class AppController {
 
                     break;
                 case "btnVisualizeAllOrders":
+                    createOrderController(VISUALIZE);
                     orderController.visualizeAllOrders();
                     break;
+
+                case "btnOrdersInsertCreateOrder":
+                    Order o = createOrderController(INSERT);
+                    orderController.insertOrder(o);
+                    break;
+                case "btnOrdersDetailsInsertAddLastOrderDetails":
+                    System.out.println("TODO");
                 default:
                     break;
             }
@@ -464,6 +569,9 @@ public class AppController {
     void initialize() {
         // Orders
         taVisualizeOrderResult.setStyle("-fx-font-family: monospace");
+        taOrdersInsertResult.setStyle("-fx-font-family: monospace");
+        taOrdersDetailsInsertResult.setStyle("-fx-font-family: monospace");
+
         labelOrderRequiredField.setVisible(false);
         labelVisualizeOrderError.setVisible(false);
         labelVisualizeOrderMessage.setVisible(false);

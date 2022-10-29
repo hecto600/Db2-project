@@ -18,11 +18,12 @@ public class Order {
     private String shipRegion;
     private String shipPostalCode;
     private String shipCountry;
+    private OrderDetails od;
 
     @Override
     public String toString() {
 
-        return "\tOrderID:" + orderID +
+        return "OrderID:" + orderID +
                "\n\tCustomerID: " + customerID +
                "\n\tEmployeeID: " + employeeID +
                "\n\tOrderDate: " + orderDate +
@@ -149,5 +150,13 @@ public class Order {
 
     public void setShipCountry(String shipCountry) {
         this.shipCountry = shipCountry;
+    }
+
+    public OrderDetails getOd() {
+        return od;
+    }
+
+    public void setOd(OrderDetails od) {
+        this.od = od;
     }
 }

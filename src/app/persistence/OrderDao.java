@@ -37,7 +37,7 @@ public class OrderDao implements InterfaceOrderDao {
                 "FROM ORDERS " +
                 "WHERE OrderID = (?)";
         PreparedStatement ps = c.prepareStatement(sql);
-        ps.setString(1, o.getCustomerID());
+        ps.setInt(1, o.getOrderID());
 
         ResultSet rs = ps.executeQuery();
         int count = 0;
@@ -59,8 +59,8 @@ public class OrderDao implements InterfaceOrderDao {
             count++;
         }
         if (count == 0)
-          return null;
-          
+            return null;
+
         rs.close();
         ps.close();
         return o;
@@ -69,22 +69,22 @@ public class OrderDao implements InterfaceOrderDao {
     @Override
     public List<Order> visualizeAllOrders() throws ClassNotFoundException, SQLException {
         String sql = "SELECT " +
-        "OrderID, " +
-        "CustomerID, " +
-        "EmployeeID, " +
-        "OrderDate, " +
-        "RequiredDate, " +
-        "ShippedDate, " +
-        "ShipVia, " +
-        "Freight, " +
-        "ShipName, " +
-        "ShipAddress, " +
-        "ShipCity, " +
-        "ShipRegion, " +
-        "ShipPostalCode, " +
-        "ShipCountry " +
-        "FROM ORDERS";
-                    
+                "OrderID, " +
+                "CustomerID, " +
+                "EmployeeID, " +
+                "OrderDate, " +
+                "RequiredDate, " +
+                "ShippedDate, " +
+                "ShipVia, " +
+                "Freight, " +
+                "ShipName, " +
+                "ShipAddress, " +
+                "ShipCity, " +
+                "ShipRegion, " +
+                "ShipPostalCode, " +
+                "ShipCountry " +
+                "FROM ORDERS";
+
         PreparedStatement ps = c.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
 
@@ -115,24 +115,56 @@ public class OrderDao implements InterfaceOrderDao {
 
     @Override
     public Order insertOrder(Order o) throws ClassNotFoundException, SQLException {
-        String sql = "INSERT INTO Orders VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "BEGIN TRANSACTION;" +
+                "INSERT INTO Orders " +
+                "(CustomerID, EmployeeID, OrderDate, RequiredDate," +
+                "ShippedDate, ShipVia, Freight, ShipName, " +
+                "ShipAddress, ShipCity, ShipRegion, ShipPostalCode, ShipCountry) " +
+                "VALUES(" +
+                "(SELECT c.CustomerID FROM Customers AS c WHERE c.CustomerID = 'ALFKI'), " +
+                "(SELECT e.EmployeeID FROM Employees AS e WHERE e.EmployeeID = 1), " +
+                "CURRENT_TIMESTAMP, " +
+                "DATEADD(DAY, 3, CURRENT_TIMESTAMP), " +
+                "NULL, " +
+                "(SELECT s.ShipperID FROM Shippers AS s WHERE s.ShipperID = 1), " +
+                "?, " +
+                "?, " +
+                "?, " +
+                "?, " +
+                "?, " +
+                "?, " +
+                "? " +
+                "); " +
+                "INSERT INTO [Order Details] (OrderID, ProductID, UnitPrice, Quantity, Discount) " +
+                "VALUES(" +
+                "(SELECT IDENT_CURRENT('Orders')), " +
+                "?, " +
+                "?, " +
+                "?, " +
+                "? " +
+                ");" +
+                "COMMIT;";
         PreparedStatement ps = c.prepareStatement(sql);
-        ps.setInt(1, o.getOrderID());
-        ps.setString(2, o.getCustomerID());
-        ps.setInt(3, o.getEmployeeID());
-        ps.setTimestamp(4, o.getOrderDate());
-        ps.setTimestamp(5, o.getRequiredDate());
-        ps.setTimestamp(6, o.getShippedDate());
-        ps.setInt(7, o.getShipVia());
-        ps.setBigDecimal(8, o.getFreight());
-        ps.setString(9, o.getShipName());
-        ps.setString(10, o.getShipAddress());
-        ps.setString(11, o.getShipCity());
-        ps.setString(12, o.getShipRegion());
-        ps.setString(13, o.getShipPostalCode());
-        ps.setString(14, o.getShipCountry());
+        ps.setBigDecimal(1, o.getFreight());
+        ps.setString(2, o.getShipName());
+        ps.setString(3, o.getShipAddress());
+        ps.setString(4, o.getShipCity());
+        ps.setString(5, o.getShipRegion());
+        ps.setString(6, o.getShipPostalCode());
+        ps.setString(7, o.getShipCountry());
+        ps.setInt(8, o.getOd().getProductID());
+        ps.setBigDecimal(9, o.getOd().getUnitPrice());
+        ps.setShort(10, o.getOd().getQuantity());
+        ps.setFloat(11, o.getOd().getDiscount());
         ps.execute();
         ps.close();
+
+        String sql2 = "SELECT IDENT_CURRENT('Orders') as OrderID";
+        PreparedStatement ps2 = c.prepareStatement(sql2);
+        ResultSet rs = ps2.executeQuery();
+        if (rs.next()) {
+            o.setOrderID(rs.getInt("OrderID"));
+        }
         return visualizeOrder(o);
     }
 

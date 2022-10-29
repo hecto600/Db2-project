@@ -5,6 +5,7 @@ import java.util.List;
 
 import app.model.Order;
 import app.persistence.OrderDao;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
@@ -12,13 +13,49 @@ public class OrderController implements InterfaceOrderController {
     private TextArea taVisualizeOrderResult;
     private TextField tfVisualizeOrderID;
 
+    private TextField tfOrdersInsertFreight;
+    private TextField tfOrdersInsertShipName;
+    private TextField tfOrdersInsertShipAddress;
+    private TextField tfOrdersInsertShipCity;
+    private TextField tfOrdersInsertShipRegion;
+    private TextField tfOrdersInsertShipPostalCode;
+    private TextField tfOrdersInsertShipCountry;
+    private TextArea taOrdersInsertResult;
+
+    private TextField tfOrdersDetailsInsertProductID;
+    private TextField tfOrdersDetailsInsertUnitPrice;
+    private TextField tfOrdersDetailsInsertQuantity;
+    private TextArea taOrdersDetailsInsertResult;
+
+    public OrderController(TextField tfOrdersInsertFreight, TextField tfOrdersInsertShipName,
+            TextField tfOrdersInsertShipAddress, TextField tfOrdersInsertShipCity, TextField tfOrdersInsertShipRegion,
+            TextField tfOrdersInsertShipPostalCode, TextField tfOrdersInsertShipCountry,
+            TextField tfOrdersDetailsInsertProductID, TextField tfOrdersDetailsInsertUnitPrice,
+            TextField tfOrdersDetailsInsertQuantity, TextArea taOrdersInsertResult,
+            TextArea taOrdersDetailsInsertResult) {
+        this.tfOrdersInsertFreight = tfOrdersInsertFreight;
+        this.tfOrdersInsertShipName = tfOrdersInsertShipName;
+        this.tfOrdersInsertShipAddress = tfOrdersInsertShipAddress;
+        this.tfOrdersInsertShipCity = tfOrdersInsertShipCity;
+        this.tfOrdersInsertShipRegion = tfOrdersInsertShipRegion;
+        this.tfOrdersInsertShipPostalCode = tfOrdersInsertShipPostalCode;
+        this.tfOrdersInsertShipCountry = tfOrdersInsertShipCountry;
+        this.tfOrdersDetailsInsertProductID = tfOrdersDetailsInsertProductID;
+        this.tfOrdersDetailsInsertUnitPrice = tfOrdersDetailsInsertUnitPrice;
+        this.tfOrdersDetailsInsertQuantity = tfOrdersDetailsInsertQuantity;
+        this.taOrdersInsertResult = taOrdersInsertResult;
+        this.taOrdersDetailsInsertResult = taOrdersDetailsInsertResult;
+    }
+
     public OrderController(TextArea taVisualizeOrderResult, TextField tfVisualizeOrderID) {
         this.taVisualizeOrderResult = taVisualizeOrderResult;
         this.tfVisualizeOrderID = tfVisualizeOrderID;
     }
 
     void cleanFields() {
-        tfVisualizeOrderID.setText("");
+        if(tfVisualizeOrderID != null){
+            tfVisualizeOrderID.setText("");
+        }
     }
 
     @Override
@@ -28,9 +65,19 @@ public class OrderController implements InterfaceOrderController {
         OrderDao oDao = new OrderDao();
         Order output = oDao.visualizeOrder(o);
         if (output == null)
-            taVisualizeOrderResult.setText("Searched orderID: " + o.getOrderID() + "\n\tOrder not found.");
+            taVisualizeOrderResult.setText("Selected orderID: " + o.getOrderID() + "\n\tOrder not found.");
         else
-            taVisualizeOrderResult.setText("Searched orderID: " + output.getOrderID() + "\n\n" + o.toString());
+            taVisualizeOrderResult.setText("Selected orderID: " + output.getOrderID() + "\n\n" + o.toString());
+
+    }
+
+    @Override
+    public void visualizeOrder(Order o, String type) throws ClassNotFoundException, SQLException {
+        cleanFields();
+        OrderDao oDao = new OrderDao();
+        oDao.visualizeOrder(o);
+        taOrdersInsertResult.setText(o.toString());
+        taOrdersDetailsInsertResult.setText(o.getOd().toString());
 
     }
 
@@ -122,17 +169,10 @@ public class OrderController implements InterfaceOrderController {
     }
 
     @Override
-    public Order insertOrder(Order o) throws ClassNotFoundException, SQLException {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public TextField getTfVisualizeOrderID() {
-        return tfVisualizeOrderID;
-    }
-
-    public void setTfVisualizeOrderID(TextField tfVisualizeOrderID) {
-        this.tfVisualizeOrderID = tfVisualizeOrderID;
+    public void insertOrder(Order o) throws ClassNotFoundException, SQLException {
+        OrderDao oDao = new OrderDao();
+        o = oDao.insertOrder(o);
+        visualizeOrder(o,"a");
     }
 
 }
