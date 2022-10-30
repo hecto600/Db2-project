@@ -14,4 +14,6 @@ public interface InterfaceOrderDao {
     public Order insertOrder(Order o) throws ClassNotFoundException, SQLException;
 
     public OrderDetails insertOrderAddLastOrderDetails(Order o) throws ClassNotFoundException, SQLException;
+
+    public List<Order> showProcedure() throws ClassNotFoundException, SQLException;
 }

@@ -10,6 +10,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 public class OrderController implements InterfaceOrderController {
+
     private TextArea taVisualizeOrderResult;
     private TextField tfVisualizeOrderID;
 
@@ -26,9 +27,16 @@ public class OrderController implements InterfaceOrderController {
     private TextField tfOrdersDetailsInsertUnitPrice;
     private TextField tfOrdersDetailsInsertQuantity;
     private TextArea taOrdersDetailsInsertResult;
+
+    private TextArea taProcedureResult;
+
     final String VISUALIZE = "visualize";
     final String INSERT = "insert";
     final String ORDER_DETAILS = "od";
+
+    public OrderController(TextArea taProcedureResult) {
+        this.taProcedureResult = taProcedureResult;
+    }
 
     public OrderController(TextField tfOrdersInsertFreight, TextField tfOrdersInsertShipName,
             TextField tfOrdersInsertShipAddress, TextField tfOrdersInsertShipCity, TextField tfOrdersInsertShipRegion,
@@ -118,13 +126,7 @@ public class OrderController implements InterfaceOrderController {
 
     }
 
-    @Override
-    public void visualizeAllOrders() throws ClassNotFoundException, SQLException {
-        cleanFields(VISUALIZE);
-        OrderDao oDao = new OrderDao();
-        List<Order> oList = oDao.visualizeAllOrders();
-        taVisualizeOrderResult.setText(null);
-
+    String formatOutput(List<Order> oList) {
         StringBuffer buffer = new StringBuffer(
                 String.format(
                         "|%-45s|" +
@@ -202,7 +204,18 @@ public class OrderController implements InterfaceOrderController {
                     "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-").replace(" ", "-"));
 
         }
-        taVisualizeOrderResult.setText(buffer.toString());
+        return buffer.toString();
+    }
+
+    @Override
+    public void visualizeAllOrders() throws ClassNotFoundException, SQLException {
+        cleanFields(VISUALIZE);
+        OrderDao oDao = new OrderDao();
+        List<Order> oList = oDao.visualizeAllOrders();
+        taVisualizeOrderResult.setText("");
+
+        String output = formatOutput(oList);
+        taVisualizeOrderResult.setText(output);
     }
 
     @Override
@@ -217,6 +230,15 @@ public class OrderController implements InterfaceOrderController {
         OrderDao oDao = new OrderDao();
         OrderDetails od = oDao.insertOrderAddLastOrderDetails(o);
         taOrdersDetailsInsertResult.appendText("\n\n" + od.toString());
+
+    }
+
+    @Override
+    public void showProcedure() throws ClassNotFoundException, SQLException {
+        OrderDao oDao = new OrderDao();
+        List<Order> oList = oDao.showProcedure();
+        String output = formatOutput(oList);
+        taProcedureResult.setText(output);
 
     }
 

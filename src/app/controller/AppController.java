@@ -8,6 +8,7 @@ import java.util.List;
 import app.model.Customer;
 import app.model.Order;
 import app.model.OrderDetails;
+import app.persistence.OrderDao;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -26,6 +27,9 @@ public class AppController {
 
     @FXML
     private Button btnOrdersInsertCreateOrder;
+
+    @FXML
+    private Button btnProcedure;
 
     @FXML
     private Button btnRemoveCustomer;
@@ -98,6 +102,9 @@ public class AppController {
 
     @FXML
     private TextArea taOrdersInsertResult;
+
+    @FXML
+    private TextArea taProcedureResult;
 
     @FXML
     private TextArea taRemoveResult;
@@ -216,11 +223,13 @@ public class AppController {
     @FXML
     private TextField tfVisualizeOrderID;
 
+
     final String VISUALIZE = "visualize";
     final String INSERT = "insert";
     final String UPDATE = "update";
     final String REMOVE = "remove";
     final String ORDER_DETAILS = "od";
+    final String PROCEDURE = "procedure";
     OrderController orderController;
 
     CustomerController createCustomerController(String type) {
@@ -557,6 +566,9 @@ public class AppController {
                         tfOrdersDetailsInsertUnitPrice, tfOrdersDetailsInsertQuantity, taOrdersInsertResult,
                         taOrdersDetailsInsertResult);
                 return o;
+            case PROCEDURE:
+                orderController = new OrderController(taProcedureResult);
+                return null;
             default:
                 return null;
         }
@@ -618,11 +630,24 @@ public class AppController {
     }
 
     @FXML
+    void actionProcedure(ActionEvent event) {
+        try {
+            
+            createOrderController(PROCEDURE);            
+            orderController.showProcedure();
+        } catch (ClassNotFoundException | SQLException se) {
+
+        }
+
+    }
+
+    @FXML
     void initialize() {
         // Orders
         taVisualizeOrderResult.setStyle("-fx-font-family: monospace");
         taOrdersInsertResult.setStyle("-fx-font-family: monospace");
         taOrdersDetailsInsertResult.setStyle("-fx-font-family: monospace");
+        taProcedureResult.setStyle("-fx-font-family: monospace");
 
         labelOrderRequiredField.setVisible(false);
         labelVisualizeOrderError.setVisible(false);

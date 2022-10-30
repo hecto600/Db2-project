@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLWarning;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -161,6 +162,8 @@ public class OrderDao implements InterfaceOrderDao {
 
         sql = "SELECT IDENT_CURRENT('Orders') as OrderID";
         ps = c.prepareStatement(sql);
+        SQLWarning w = ps.getWarnings();
+        System.out.println("Trigger message: " + w.getMessage() );
         ResultSet rs = ps.executeQuery();
         rs.next();
         o.setOrderID(rs.getInt("OrderID"));
@@ -198,11 +201,38 @@ public class OrderDao implements InterfaceOrderDao {
             od.setQuantity(rs.getShort("Quantity"));
             od.setDiscount(rs.getFloat("Discount"));
         }
-        
+
         ps.execute();
         rs.close();
         ps.close();
         return od;
+    }
+
+    @Override
+    public List<Order> showProcedure() throws ClassNotFoundException, SQLException {
+        String sql = "EXEC topRecentOrders";
+        PreparedStatement ps = c.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        List<Order> oList = new ArrayList<Order>();
+        while (rs.next()) {
+            Order o = new Order();
+            o.setOrderID(rs.getInt("OrderID"));
+            o.setCustomerID(rs.getString("CustomerID"));
+            o.setEmployeeID(rs.getInt("EmployeeID"));
+            o.setOrderDate(rs.getTimestamp("OrderDate"));
+            o.setRequiredDate(rs.getTimestamp("RequiredDate"));
+            o.setShippedDate(rs.getTimestamp("ShippedDate"));
+            o.setShipVia(rs.getInt("ShipVia"));
+            o.setFreight(rs.getBigDecimal("Freight"));
+            o.setShipName(rs.getString("ShipName"));
+            o.setShipAddress(rs.getString("ShipAddress"));
+            o.setShipCity(rs.getString("ShipCity"));
+            o.setShipRegion(rs.getString("ShipRegion"));
+            o.setShipPostalCode(rs.getString("ShipPostalCode"));
+            o.setShipCountry(rs.getString("ShipCountry"));
+            oList.add(o);
+        }
+        return oList;
     }
 
 }

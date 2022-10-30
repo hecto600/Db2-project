@@ -9,5 +9,6 @@ public interface InterfaceOrderController {
     public void visualizeAllOrders() throws ClassNotFoundException, SQLException;
     public void insertOrder(Order o) throws ClassNotFoundException, SQLException;
     public void insertOrderAddLastOrderDetails(Order o) throws ClassNotFoundException, SQLException;
+    public void showProcedure() throws ClassNotFoundException,SQLException;
 
 }
