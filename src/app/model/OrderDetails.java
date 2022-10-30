@@ -12,10 +12,10 @@ public class OrderDetails {
     @Override
     public String toString() {
         return "OrderID: " + orderID +
-                "\nProductID: " + productID +
-                "\nUnitPrice: " + unitPrice +
-                "\nQuantity: " + quantity +
-                "\nDiscount: " + discount;
+                "\n\tProductID: " + productID +
+                "\n\tUnitPrice: " + unitPrice +
+                "\n\tQuantity: " + quantity +
+                "\n\tDiscount: " + discount;
     }
 
     public int getOrderID() {

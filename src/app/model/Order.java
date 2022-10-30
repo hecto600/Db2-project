@@ -36,7 +36,8 @@ public class Order {
                "\n\tShipCity: " + shipCity +
                "\n\tShipRegion: " + shipRegion +
                "\n\tShipPostalCode: " + shipPostalCode +
-               "\n\tShipCountry: " + shipCountry;
+               "\n\tShipCountry: " + shipCountry +
+               "\n";
 
     }
 

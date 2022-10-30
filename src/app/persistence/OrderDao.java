@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.model.Order;
+import app.model.OrderDetails;
 
 public class OrderDao implements InterfaceOrderDao {
     private Connection c;
@@ -34,7 +35,7 @@ public class OrderDao implements InterfaceOrderDao {
                 "ShipRegion, " +
                 "ShipPostalCode, " +
                 "ShipCountry " +
-                "FROM ORDERS " +
+                "FROM Orders " +
                 "WHERE OrderID = (?)";
         PreparedStatement ps = c.prepareStatement(sql);
         ps.setInt(1, o.getOrderID());
@@ -157,15 +158,51 @@ public class OrderDao implements InterfaceOrderDao {
         ps.setShort(10, o.getOd().getQuantity());
         ps.setFloat(11, o.getOd().getDiscount());
         ps.execute();
-        ps.close();
 
-        String sql2 = "SELECT IDENT_CURRENT('Orders') as OrderID";
-        PreparedStatement ps2 = c.prepareStatement(sql2);
-        ResultSet rs = ps2.executeQuery();
-        if (rs.next()) {
-            o.setOrderID(rs.getInt("OrderID"));
-        }
+        sql = "SELECT IDENT_CURRENT('Orders') as OrderID";
+        ps = c.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        o.setOrderID(rs.getInt("OrderID"));
+        o.getOd().setOrderID(rs.getInt("OrderID"));
+        rs.close();
+        ps.close();
         return visualizeOrder(o);
+    }
+
+    @Override
+    public OrderDetails insertOrderAddLastOrderDetails(Order o) throws ClassNotFoundException, SQLException {
+        String sql = "INSERT INTO[Order Details] (OrderID, ProductID, UnitPrice, Quantity) " +
+                "VALUES( " +
+                "(SELECT IDENT_CURRENT('Orders')), " +
+                "?, " +
+                "?, " +
+                "? " +
+                ");";
+
+        PreparedStatement ps = c.prepareStatement(sql);
+        OrderDetails od = o.getOd();
+        ps.setInt(1, od.getProductID());
+        ps.setBigDecimal(2, od.getUnitPrice());
+        ps.setShort(3, od.getQuantity());
+        ps.execute();
+
+        sql = "SELECT * FROM [Order Details] WHERE OrderID = IDENT_CURRENT('Orders') AND ProductID = ?; ";
+        ps = c.prepareStatement(sql);
+        ps.setInt(1, od.getProductID());
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            od.setOrderID(rs.getInt("OrderID"));
+            od.setProductID(rs.getInt("ProductID"));
+            od.setUnitPrice(rs.getBigDecimal("UnitPrice"));
+            od.setQuantity(rs.getShort("Quantity"));
+            od.setDiscount(rs.getFloat("Discount"));
+        }
+        
+        ps.execute();
+        rs.close();
+        ps.close();
+        return od;
     }
 
 }

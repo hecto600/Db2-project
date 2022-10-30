@@ -28,9 +28,6 @@ public class AppController {
     private Button btnOrdersInsertCreateOrder;
 
     @FXML
-    private Button btnOrdersInsertTerminateOrder;
-
-    @FXML
     private Button btnRemoveCustomer;
 
     @FXML
@@ -53,6 +50,12 @@ public class AppController {
 
     @FXML
     private Label labelInsertErrorMessage;
+
+    @FXML
+    private Label labelOrderInsertError;
+
+    @FXML
+    private Label labelOrderInsertErrorMessage;
 
     @FXML
     private Label labelOrderRequiredField;
@@ -217,6 +220,7 @@ public class AppController {
     final String INSERT = "insert";
     final String UPDATE = "update";
     final String REMOVE = "remove";
+    final String ORDER_DETAILS = "od";
     OrderController orderController;
 
     CustomerController createCustomerController(String type) {
@@ -474,53 +478,89 @@ public class AppController {
         labelOrderRequiredField.setVisible(false);
         labelVisualizeOrderError.setVisible(false);
         labelVisualizeOrderMessage.setVisible(false);
+        labelOrderInsertError.setVisible(false);
+        labelOrderInsertErrorMessage.setVisible(false);
     }
 
     Order createOrderController(String type) {
-        if (type.equals(VISUALIZE)) {
-            orderController = new OrderController(taVisualizeOrderResult, tfVisualizeOrderID);
-            return null;
-        } else {
-            TextField[] tfs = new TextField[] { tfOrdersInsertFreight, tfOrdersInsertShipName,
-                    tfOrdersInsertShipAddress, tfOrdersInsertShipCity, tfOrdersInsertShipRegion,
-                    tfOrdersInsertShipPostalCode, tfOrdersInsertShipCountry };
-            for (TextField t : tfs) {
-                if (t.getText().isEmpty()) {
-                    t.setText("NULL");
+        TextField[] tfs;
+        TextField[] tfos;
+        Order o;
+        OrderDetails od;
+
+        switch (type) {
+            case VISUALIZE:
+                orderController = new OrderController(taVisualizeOrderResult, tfVisualizeOrderID);
+                return null;
+            case INSERT:
+                if(tfOrdersInsertFreight.getText().isEmpty()){
+                    tfOrdersInsertFreight.setText("0");
                 }
-            }
-
-            Order o = new Order();
-            o.setFreight(new BigDecimal(tfOrdersInsertFreight.getText()));
-            o.setShipName(tfOrdersInsertShipName.getText());
-            o.setShipAddress(tfOrdersInsertShipAddress.getText());
-            o.setShipCity(tfOrdersInsertShipCity.getText());
-            o.setShipRegion(tfOrdersInsertShipRegion.getText());
-            o.setShipPostalCode(tfOrdersInsertShipPostalCode.getText());
-            o.setShipCountry(tfOrdersInsertShipCountry.getText());
-
-            TextField[] tfos = new TextField[] {
-                    tfOrdersDetailsInsertUnitPrice, tfOrdersDetailsInsertQuantity };
-            for (TextField t : tfos) {
-                if (t.getText().isEmpty()) {
-                    t.setText("NULL");
+                tfs = new TextField[] {tfOrdersInsertShipName,
+                        tfOrdersInsertShipAddress, tfOrdersInsertShipCity, tfOrdersInsertShipRegion,
+                        tfOrdersInsertShipPostalCode, tfOrdersInsertShipCountry };
+                for (TextField t : tfs) {
+                    if (t.getText().isEmpty()) {
+                        t.setText("NULL");
+                    }
                 }
 
-            }
+                o = new Order();
+                o.setFreight(new BigDecimal(tfOrdersInsertFreight.getText()));
+                o.setShipName(tfOrdersInsertShipName.getText());
+                o.setShipAddress(tfOrdersInsertShipAddress.getText());
+                o.setShipCity(tfOrdersInsertShipCity.getText());
+                o.setShipRegion(tfOrdersInsertShipRegion.getText());
+                o.setShipPostalCode(tfOrdersInsertShipPostalCode.getText());
+                o.setShipCountry(tfOrdersInsertShipCountry.getText());
 
-            OrderDetails od = new OrderDetails();
-            od.setProductID(Integer.parseInt(tfOrdersDetailsInsertProductID.getText()));
-            od.setUnitPrice(new BigDecimal(tfOrdersDetailsInsertUnitPrice.getText()));
-            od.setQuantity(Short.parseShort(tfOrdersDetailsInsertQuantity.getText()));
-            o.setOd(od);
+                tfos = new TextField[] {tfOrdersDetailsInsertProductID,
+                        tfOrdersDetailsInsertUnitPrice, tfOrdersDetailsInsertQuantity };
+                for (TextField t : tfos) {
+                    if (t.getText().isEmpty()) {
+                        return null;
+                    }
 
-            orderController = new OrderController(tfOrdersInsertFreight, tfOrdersInsertShipName,
-                    tfOrdersInsertShipAddress, tfOrdersInsertShipCity, tfOrdersInsertShipAddress,
-                    tfOrdersInsertShipPostalCode, tfOrdersInsertShipCountry, tfOrdersDetailsInsertProductID,
-                    tfOrdersDetailsInsertUnitPrice, tfOrdersDetailsInsertQuantity, taOrdersInsertResult,
-                    taOrdersDetailsInsertResult);
-            return o;
+                }
+
+                od = new OrderDetails();
+                od.setProductID(Integer.parseInt(tfOrdersDetailsInsertProductID.getText()));
+                od.setUnitPrice(new BigDecimal(tfOrdersDetailsInsertUnitPrice.getText()));
+                od.setQuantity(Short.parseShort(tfOrdersDetailsInsertQuantity.getText()));
+                o.setOd(od);
+
+                orderController = new OrderController(tfOrdersInsertFreight, tfOrdersInsertShipName,
+                        tfOrdersInsertShipAddress, tfOrdersInsertShipCity, tfOrdersInsertShipRegion,
+                        tfOrdersInsertShipPostalCode, tfOrdersInsertShipCountry, tfOrdersDetailsInsertProductID,
+                        tfOrdersDetailsInsertUnitPrice, tfOrdersDetailsInsertQuantity, taOrdersInsertResult,
+                        taOrdersDetailsInsertResult);
+                return o;
+            case ORDER_DETAILS:
+                tfos = new TextField[] {tfOrdersDetailsInsertProductID,
+                        tfOrdersDetailsInsertUnitPrice, tfOrdersDetailsInsertQuantity };
+                for (TextField t : tfos) {
+                    if (t.getText().isEmpty()) {
+                        t.setText("NULL");
+                    }
+
+                }
+
+                o = new Order();
+                od = new OrderDetails();
+                od.setProductID(Integer.parseInt(tfOrdersDetailsInsertProductID.getText()));
+                od.setUnitPrice(new BigDecimal(tfOrdersDetailsInsertUnitPrice.getText()));
+                od.setQuantity(Short.parseShort(tfOrdersDetailsInsertQuantity.getText()));
+                o.setOd(od);
+                orderController = new OrderController(tfOrdersInsertFreight, tfOrdersInsertShipName,
+                        tfOrdersInsertShipAddress, tfOrdersInsertShipCity, tfOrdersInsertShipRegion,
+                        tfOrdersInsertShipPostalCode, tfOrdersInsertShipCountry, tfOrdersDetailsInsertProductID,
+                        tfOrdersDetailsInsertUnitPrice, tfOrdersDetailsInsertQuantity, taOrdersInsertResult,
+                        taOrdersDetailsInsertResult);
+                return o;
+            default:
+                return null;
         }
+
     }
 
     @FXML
@@ -530,6 +570,7 @@ public class AppController {
         String cmd = event.getSource().toString();
         cmd = cmd.substring(cmd.indexOf("=") + 1, cmd.indexOf(","));
         try {
+            Order o;
             switch (cmd) {
                 case "btnVisualizeOrder":
                     createOrderController(VISUALIZE);
@@ -537,23 +578,33 @@ public class AppController {
                         labelOrderRequiredField.setVisible(true);
                         labelVisualizeOrderError.setVisible(true);
                     } else {
-                        Order o = new Order();
-                        o.setCustomerID(tfVisualizeOrderID.getText());
-                        orderController.visualizeOrder(o);
+                        o = new Order();
+                        o.setOrderID(Integer.parseInt(tfVisualizeOrderID.getText()));
+                        orderController.visualizeOrder(o, VISUALIZE);
                     }
 
                     break;
+
                 case "btnVisualizeAllOrders":
                     createOrderController(VISUALIZE);
                     orderController.visualizeAllOrders();
                     break;
 
                 case "btnOrdersInsertCreateOrder":
-                    Order o = createOrderController(INSERT);
-                    orderController.insertOrder(o);
+                    o = createOrderController(INSERT);
+                    if(o == null){
+                        labelOrderInsertError.setVisible(true);
+                        labelOrderInsertError.setText("Order's details fields are required.");	
+                    }else{
+                        orderController.insertOrder(o);
+                    }
                     break;
+
                 case "btnOrdersDetailsInsertAddLastOrderDetails":
-                    System.out.println("TODO");
+                    o = createOrderController(ORDER_DETAILS);
+                    orderController.insertOrderAddLastOrderDetails(o);
+                    break;
+ 
                 default:
                     break;
             }
@@ -561,6 +612,7 @@ public class AppController {
             se.printStackTrace();
             labelVisualizeOrderMessage.setVisible(true);
             labelVisualizeOrderMessage.setText(se.getMessage());
+            labelInsertErrorMessage.setText(se.getMessage());
         }
 
     }
@@ -575,6 +627,8 @@ public class AppController {
         labelOrderRequiredField.setVisible(false);
         labelVisualizeOrderError.setVisible(false);
         labelVisualizeOrderMessage.setVisible(false);
+        labelOrderInsertError.setVisible(false);
+        labelOrderInsertErrorMessage.setVisible(false);
 
         // Customers
         taVisualizeResult.setStyle("-fx-font-family: monospace");

@@ -4,8 +4,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 import app.model.Order;
+import app.model.OrderDetails;
 import app.persistence.OrderDao;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
@@ -26,6 +26,9 @@ public class OrderController implements InterfaceOrderController {
     private TextField tfOrdersDetailsInsertUnitPrice;
     private TextField tfOrdersDetailsInsertQuantity;
     private TextArea taOrdersDetailsInsertResult;
+    final String VISUALIZE = "visualize";
+    final String INSERT = "insert";
+    final String ORDER_DETAILS = "od";
 
     public OrderController(TextField tfOrdersInsertFreight, TextField tfOrdersInsertShipName,
             TextField tfOrdersInsertShipAddress, TextField tfOrdersInsertShipCity, TextField tfOrdersInsertShipRegion,
@@ -52,38 +55,72 @@ public class OrderController implements InterfaceOrderController {
         this.tfVisualizeOrderID = tfVisualizeOrderID;
     }
 
-    void cleanFields() {
-        if(tfVisualizeOrderID != null){
-            tfVisualizeOrderID.setText("");
+    void cleanFields(String type) {
+        switch (type) {
+            case VISUALIZE:
+                tfVisualizeOrderID.setText("");
+                break;
+            case INSERT:
+                tfOrdersInsertFreight.setText("");
+                tfOrdersInsertShipName.setText("");
+                tfOrdersInsertShipAddress.setText("");
+                tfOrdersInsertShipCity.setText("");
+                tfOrdersInsertShipRegion.setText("");
+                tfOrdersInsertShipPostalCode.setText("");
+                tfOrdersInsertShipCountry.setText("");
+                tfOrdersDetailsInsertProductID.setText("");
+                tfOrdersDetailsInsertUnitPrice.setText("");
+                tfOrdersDetailsInsertQuantity.setText("");
+                break;
+
+            case ORDER_DETAILS:
+                tfOrdersDetailsInsertProductID.setText("");
+                tfOrdersDetailsInsertUnitPrice.setText("");
+                tfOrdersDetailsInsertQuantity.setText("");
+                break;
+
+            default:
+                break;
         }
-    }
-
-    @Override
-    public void visualizeOrder(Order o) throws ClassNotFoundException, SQLException {
-        cleanFields();
-
-        OrderDao oDao = new OrderDao();
-        Order output = oDao.visualizeOrder(o);
-        if (output == null)
-            taVisualizeOrderResult.setText("Selected orderID: " + o.getOrderID() + "\n\tOrder not found.");
-        else
-            taVisualizeOrderResult.setText("Selected orderID: " + output.getOrderID() + "\n\n" + o.toString());
 
     }
 
     @Override
     public void visualizeOrder(Order o, String type) throws ClassNotFoundException, SQLException {
-        cleanFields();
-        OrderDao oDao = new OrderDao();
-        oDao.visualizeOrder(o);
-        taOrdersInsertResult.setText(o.toString());
-        taOrdersDetailsInsertResult.setText(o.getOd().toString());
+
+        OrderDao oDao;
+        switch (type) {
+            case VISUALIZE:
+                cleanFields(VISUALIZE);
+
+                oDao = new OrderDao();
+                Order output = oDao.visualizeOrder(o);
+                if (output == null)
+                    taVisualizeOrderResult.setText("Selected orderID: " + o.getOrderID() + "\n\tOrder not found.");
+                else
+                    taVisualizeOrderResult.setText("Selected orderID: " + output.getOrderID() + "\n\n" + o.toString());
+
+                break;
+
+            case INSERT:
+                cleanFields(INSERT);
+                oDao = new OrderDao();
+                oDao.visualizeOrder(o);
+                taOrdersInsertResult.setText(o.toString());
+                taOrdersDetailsInsertResult.setText(o.getOd().toString());
+
+            case ORDER_DETAILS:
+                cleanFields(ORDER_DETAILS);
+                oDao = new OrderDao();
+            default:
+                break;
+        }
 
     }
 
     @Override
     public void visualizeAllOrders() throws ClassNotFoundException, SQLException {
-        cleanFields();
+        cleanFields(VISUALIZE);
         OrderDao oDao = new OrderDao();
         List<Order> oList = oDao.visualizeAllOrders();
         taVisualizeOrderResult.setText(null);
@@ -172,7 +209,15 @@ public class OrderController implements InterfaceOrderController {
     public void insertOrder(Order o) throws ClassNotFoundException, SQLException {
         OrderDao oDao = new OrderDao();
         o = oDao.insertOrder(o);
-        visualizeOrder(o,"a");
+        visualizeOrder(o, INSERT);
+    }
+
+    @Override
+    public void insertOrderAddLastOrderDetails(Order o) throws ClassNotFoundException, SQLException {
+        OrderDao oDao = new OrderDao();
+        OrderDetails od = oDao.insertOrderAddLastOrderDetails(o);
+        taOrdersDetailsInsertResult.appendText("\n\n" + od.toString());
+
     }
 
 }

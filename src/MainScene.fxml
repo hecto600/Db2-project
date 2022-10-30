@@ -553,12 +553,13 @@
                                                             <Insets />
                                                          </VBox.margin>
                                                       </VBox>
-                                                      <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                                      <HBox spacing="10.0" VBox.vgrow="NEVER">
                                                          <children>
                                                             <Button fx:id="btnOrdersInsertCreateOrder" mnemonicParsing="false" onAction="#actionOrders" text="Create a order" />
-                                                            <Button fx:id="btnOrdersDetailsInsertAddLastOrderDetails" mnemonicParsing="false" text="Add last order's details" />
+                                                            <Button fx:id="btnOrdersDetailsInsertAddLastOrderDetails" mnemonicParsing="false" onAction="#actionOrders" text="Add last order's details" />
                                                          </children>
                                                       </HBox>
+                                                      <Label fx:id="labelOrderInsertError" text="Operation error" textFill="RED" />
                                                    </children>
                                                    <HBox.margin>
                                                       <Insets />
@@ -579,6 +580,7 @@
                                                             <TextArea fx:id="taOrdersInsertResult" prefHeight="300.0" prefWidth="300.0" />
                                                          </content>
                                                       </ScrollPane>
+                                                      <Label fx:id="labelOrderInsertErrorMessage" text="Error message" textFill="RED" />
                                                       <Label text="Orders details info">
                                                          <font>
                                                             <Font name="System Bold" size="12.0" />
