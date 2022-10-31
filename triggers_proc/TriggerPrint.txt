@@ -1,0 +1,4 @@
+CREATE TRIGGER insertedOrder ON Orders 
+FOR INSERT
+AS raiserror ('%d linhas foram modificadas', 0, 1, @@rowcount)
+PRINT 'Compra adicionada com sucesso.'

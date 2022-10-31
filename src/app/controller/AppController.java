@@ -8,7 +8,6 @@ import java.util.List;
 import app.model.Customer;
 import app.model.Order;
 import app.model.OrderDetails;
-import app.persistence.OrderDao;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -222,6 +221,7 @@ public class AppController {
 
     @FXML
     private TextField tfVisualizeOrderID;
+
 
 
     final String VISUALIZE = "visualize";

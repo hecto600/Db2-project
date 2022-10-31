@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.SQLWarning;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -162,8 +161,6 @@ public class OrderDao implements InterfaceOrderDao {
 
         sql = "SELECT IDENT_CURRENT('Orders') as OrderID";
         ps = c.prepareStatement(sql);
-        SQLWarning w = ps.getWarnings();
-        System.out.println("Trigger message: " + w.getMessage() );
         ResultSet rs = ps.executeQuery();
         rs.next();
         o.setOrderID(rs.getInt("OrderID"));

@@ -40,7 +40,7 @@
                               <Font size="27.0" />
                            </font>
                         </Label>
-                        <Label text="This application was made for database college's course project.&#10;Done with javafx, Sql server and Northwind database template.&#10;&#9;• The app makes CRUD operations with Customers table. &#10;&#9;• Read and insert  Orders with multiple products.&#10;&#9;• Execute a database procedure.&#10;&#9;• Trigger WIP.&#10;" textAlignment="JUSTIFY" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label text="This application was made for database college's course project.&#10;Done with javafx, Sql server and Northwind database template.&#10;&#9;• The app makes CRUD operations with Customers table. &#10;&#9;• Read and insert  Orders with multiple products.&#10;&#9;• Execute a database procedure.&#10;&#9;&#10;" textAlignment="JUSTIFY" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                </children>
