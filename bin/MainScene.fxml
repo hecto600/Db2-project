@@ -40,7 +40,8 @@
                               <Font size="27.0" />
                            </font>
                         </Label>
-                        <Label text="This application was made for database college's course project.&#10;Done with javafx, Sql server and Northwind database template.&#10;&#9;• The app makes CRUD operations with Customers table. &#10;&#9;• Read and insert  Orders with multiple products.&#10;&#9;• Execute a database procedure.&#10;&#9;&#10;" textAlignment="JUSTIFY" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label text="This application was made for database college's course project.&#10;Done with javafx, Sql server and Northwind database template.&#10;&#9;• The app makes CRUD operations with customers table. &#10;&#9;• Read and insert orders with multiple products.&#10;&#9;• Execute a database procedure.&#10;&#9;&#10;" textAlignment="JUSTIFY" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label text="Creators: &#10;&#9;• Hector de Oliveira Pinheiro: &#10;&#9;&#9;- GUI application.&#10;&#9;&#9;- Customers and Orders features.&#10;&#9;• Mario Filipe: &#10;&#9;&#9;- Procedure and Trigger logic." GridPane.columnIndex="1" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                </children>
@@ -65,7 +66,7 @@
                                       </columnConstraints>
                                       <rowConstraints>
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-                                        <RowConstraints vgrow="SOMETIMES" />
+                                        <RowConstraints vgrow="ALWAYS" />
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                       </rowConstraints>
                                        <children>
@@ -91,7 +92,7 @@
                                                 <Label fx:id="labelVisualizeErrorMessage" text="Error message" textFill="RED" />
                                              </children>
                                           </VBox>
-                                          <ScrollPane fitToHeight="true" fitToWidth="true" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+                                          <ScrollPane fitToHeight="true" fitToWidth="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                              <content>
                                                 <TextArea fx:id="taVisualizeResult" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
                                              </content>
@@ -430,7 +431,7 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <GridPane prefHeight="741.0" prefWidth="1156.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <GridPane prefHeight="712.0" prefWidth="1156.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <columnConstraints>
                                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                           <ColumnConstraints hgrow="ALWAYS" />
@@ -438,7 +439,7 @@
                                        </columnConstraints>
                                        <rowConstraints>
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-                                          <RowConstraints vgrow="SOMETIMES" />
+                                          <RowConstraints vgrow="ALWAYS" />
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                        </rowConstraints>
                                        <children>
@@ -464,9 +465,9 @@
                                                 <Label fx:id="labelVisualizeOrderMessage" text="Error message" textFill="RED" />
                                              </children>
                                           </VBox>
-                                          <ScrollPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                          <ScrollPane fitToHeight="true" fitToWidth="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                              <content>
-                                                <TextArea fx:id="taVisualizeOrderResult" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="425.0" prefWidth="955.0" />
+                                                <TextArea fx:id="taVisualizeOrderResult" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
                                              </content>
                                           </ScrollPane>
                                        </children>
