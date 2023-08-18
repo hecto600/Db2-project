@@ -8,7 +8,7 @@ public class GenericDao {
     private Connection con;
 
     public Connection getConnection() throws ClassNotFoundException, SQLException{
-        String hostname = "DESKTOP-CQHO7Q7/SQLEXPRESS";
+        String hostname = "DESKTOP-CQHO7Q7/Northwind";
         String dbName = "Northwind";
         String user = "DESKTOP-CQHO7Q7";
         String pw = "";
