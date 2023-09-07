@@ -10,7 +10,4 @@
         + Procedure and trigger logic
 
 ## App images
-    ![insert] (https://github.com/hecto600/Db2_procTrigger_project/blob/main/imgs/insert.png)
-    ![list](imgs\list.png)
-    ![procedure](imgs\procedure.png)
-    ![update](imgs\update.png)
+    images at imgs folder
