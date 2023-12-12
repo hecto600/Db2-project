@@ -11,8 +11,8 @@
 
 ## App images
     
-![in](https://github.com/hecto600/Db2_procTrigger_project/tree/main/imgs/insert.png)
-![li](https://github.com/hecto600/Db2_procTrigger_project/tree/main/imgs/list.png)
-![pro](https://github.com/hecto600/Db2_procTrigger_project/tree/main/imgs/procedure.png)
-![up](https://github.com/hecto600/Db2_procTrigger_project/tree/main/imgs/update.png)
+![in](https://github.com/hecto600/Db2-project/blob/main/imgs/insert.png)
+![li](https://github.com/hecto600/Db2-project/blob/main/imgs/list.png)
+![pro](https://github.com/hecto600/Db2-project/blob/main/imgs/procedure.png)
+![up](./imgs/update.png)
     
