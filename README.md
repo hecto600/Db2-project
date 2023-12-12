@@ -10,8 +10,9 @@
         + Procedure and trigger logic
 
 ## App images
-    ![in](https://github.com/hecto600/Db2_procTrigger_project/tree/main/imgs/insert.png)
-    ![li](https://github.com/hecto600/Db2_procTrigger_project/tree/main/imgs/list.png)
-    ![pro](https://github.com/hecto600/Db2_procTrigger_project/tree/main/imgs/procedure.png)
-    ![up](https://github.com/hecto600/Db2_procTrigger_project/tree/main/imgs/update.png)
+    
+    ![in](./tree/main/imgs/insert.png)
+    ![li](./tree/main/imgs/list.png)
+    ![pro](./tree/main/imgs/procedure.png)
+![up](./tree/main/imgs/update.png)
     
